@@ -5,8 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-heading: var(--font-sans);
+    --font-display: var(--font-display);
+    --font-heading: var(--font-display);
     --font-sans: var(--font-sans);
+    --font-mono: var(--font-mono);
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -33,7 +35,7 @@
     --color-primary-foreground: var(--primary-foreground);
     --color-primary: var(--primary);
     --color-popover-foreground: var(--popover-foreground);
-    --color-popover: var(--popover);
+    --color-popover: var(--card);
     --color-card-foreground: var(--card-foreground);
     --color-card: var(--card);
     --color-foreground: var(--foreground);
@@ -47,86 +49,369 @@
     --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* =============================================================
+   COBALT — Portfolio Design System
+   Tokens: color, type, space, radius, motion
+   ============================================================= */
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
+    /* ---- Cobalt — primary brand ---- */
+    --cobalt-50:  #EAF0FF;
+    --cobalt-100: #C7D5FF;
+    --cobalt-200: #94AEFF;
+    --cobalt-300: #5A82FB;
+    --cobalt-400: #2B5BF1;
+    --cobalt-500: #023BE6;
+    --cobalt-600: #0030C2;
+    --cobalt-700: #002499;
+    --cobalt-800: #001A70;
+    --cobalt-900: #000F47;
+
+    /* ---- Ink — neutral with blue cast ---- */
+    --ink-0:   #FFFFFF;
+    --ink-50:  #F5F6F8;
+    --ink-100: #E4E6EC;
+    --ink-200: #B7BBC7;
+    --ink-300: #8A8F9F;
+    --ink-400: #5C6273;
+    --ink-500: #3A3F4D;
+    --ink-600: #232733;
+    --ink-700: #181B25;
+    --ink-800: #10121A;
+    --ink-900: #08090F;
+    --ink-950: #050609;
+
+    /* ---- Accents ---- */
+    --citrus: #E8FF6A;
+    --plum:   #B266FF;
+    --cyan:   #5DE2FF;
+    --ember:  #FF6A3D;
+
+    /* ---- Semantic — dark mode default ---- */
+    --bg:         var(--ink-950);
+    --bg-raised:  var(--ink-900);
+    --bg-sunken:  var(--ink-950);
+    --surface:    var(--ink-800);
+    --surface-2:  var(--ink-700);
+    --surface-hi: #1A1D28;
+
+    --fg1:     #F4F5F8;
+    --fg2:     var(--ink-200);
+    --fg3:     var(--ink-300);
+    --fg-mute: var(--ink-400);
+
+    --cobalt-border:    rgba(255, 255, 255, 0.08);
+    --cobalt-border-hi: rgba(255, 255, 255, 0.14);
+    --cobalt-border-lo: rgba(255, 255, 255, 0.04);
+
+    --primary-cobalt:   var(--cobalt-500);
+    --primary-hi:       var(--cobalt-400);
+    --primary-lo:       var(--cobalt-600);
+    --on-primary:       #FFFFFF;
+    --primary-glow:     0 0 60px -10px var(--cobalt-500), 0 0 24px -8px var(--cobalt-400);
+
+    --success: #2BD178;
+    --warning: #FFC857;
+    --danger:  #FF5470;
+
+    /* ---- Mesh gradients ---- */
+    --mesh:
+        radial-gradient(at 12% 18%, rgba(2, 59, 230, 0.55) 0px, transparent 45%),
+        radial-gradient(at 82% 8%,  rgba(178, 102, 255, 0.32) 0px, transparent 50%),
+        radial-gradient(at 78% 88%, rgba(93, 226, 255, 0.22) 0px, transparent 55%),
+        radial-gradient(at 18% 92%, rgba(2, 59, 230, 0.30) 0px, transparent 55%),
+        var(--ink-950);
+
+    --mesh-soft:
+        radial-gradient(at 30% 20%, rgba(2, 59, 230, 0.22) 0px, transparent 50%),
+        radial-gradient(at 80% 80%, rgba(178, 102, 255, 0.14) 0px, transparent 55%),
+        var(--ink-900);
+
+    --grain-url: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
+
+    /* ---- Shadow / Glow ---- */
+    --sh-1:     0 1px 2px rgba(0, 0, 0, 0.4);
+    --sh-2:     0 6px 18px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.3);
+    --sh-3:     0 24px 60px rgba(0, 0, 0, 0.55), 0 8px 18px rgba(0, 0, 0, 0.35);
+    --sh-inset: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    --sh-inset-hi: inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 -1px 0 rgba(0,0,0,0.4);
+    --glow-cobalt:      0 0 0 1px rgba(2, 59, 230, 0.4), 0 12px 60px -10px rgba(2, 59, 230, 0.55);
+    --glow-cobalt-soft: 0 0 40px -8px rgba(2, 59, 230, 0.35);
+
+    /* ---- Motion ---- */
+    --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-in:     cubic-bezier(0.55, 0, 1, 0.45);
+    --ease-emph:   cubic-bezier(0.65, 0, 0.05, 1);
+    --d-fast: 140ms;
+    --d-base: 240ms;
+    --d-slow: 480ms;
+    --d-page: 720ms;
+
+    /* ---- shadcn semantic tokens (dark-first) ---- */
+    --background: #050609;
+    --foreground: #F4F5F8;
+    --card: #10121A;
+    --card-foreground: #F4F5F8;
+    --popover: #10121A;
+    --popover-foreground: #F4F5F8;
+    --primary: #023BE6;
+    --primary-foreground: #FFFFFF;
+    --secondary: #181B25;
+    --secondary-foreground: #F4F5F8;
+    --muted: #181B25;
+    --muted-foreground: #8A8F9F;
+    --accent: #181B25;
+    --accent-foreground: #F4F5F8;
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: rgba(255, 255, 255, 0.08);
+    --input: rgba(255, 255, 255, 0.08);
+    --ring: #023BE6;
+    --chart-1: #023BE6;
+    --chart-2: #5A82FB;
+    --chart-3: #B266FF;
+    --chart-4: #5DE2FF;
+    --chart-5: #E8FF6A;
+    --radius: 0.875rem;
+    --sidebar: #08090F;
+    --sidebar-foreground: #F4F5F8;
+    --sidebar-primary: #023BE6;
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent: #181B25;
+    --sidebar-accent-foreground: #F4F5F8;
+    --sidebar-border: rgba(255, 255, 255, 0.08);
+    --sidebar-ring: #023BE6;
 }
 
-.dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+/* Light mode overrides (if toggled) */
+.light {
+    --background: #F5F6F8;
+    --foreground: #08090F;
+    --card: #FFFFFF;
+    --card-foreground: #08090F;
+    --primary: #023BE6;
+    --primary-foreground: #FFFFFF;
+    --secondary: #E4E6EC;
+    --secondary-foreground: #08090F;
+    --muted: #E4E6EC;
+    --muted-foreground: #5C6273;
+    --accent: #EAF0FF;
+    --accent-foreground: #023BE6;
+    --border: rgba(0, 0, 0, 0.1);
+    --input: rgba(0, 0, 0, 0.08);
+    --ring: #023BE6;
+    --bg: #F5F6F8;
+    --surface: #FFFFFF;
+    --fg1: #08090F;
+    --fg2: #3A3F4D;
+    --fg3: #5C6273;
+    --cobalt-border: rgba(0, 0, 0, 0.1);
+    --cobalt-border-hi: rgba(0, 0, 0, 0.18);
+    --cobalt-border-lo: rgba(0, 0, 0, 0.04);
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+    * {
+        @apply border-border outline-ring/50;
     }
-  body {
-    @apply bg-background text-foreground;
+    body {
+        background: var(--bg);
+        color: var(--fg1);
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        line-height: 1.55;
+        font-feature-settings: "ss01", "cv11";
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
     }
-  button:not(:disabled), [role="button"]:not(:disabled) {
-    cursor: pointer;
+    button:not(:disabled), [role="button"]:not(:disabled) {
+        cursor: pointer;
     }
-  html {
-    @apply font-sans;
+    html {
+        @apply font-sans;
     }
+    h1, .h1 {
+        font-family: var(--font-display);
+        font-weight: 400;
+        font-size: clamp(3rem, 9vw, 8.5rem);
+        line-height: 0.96;
+        letter-spacing: -0.04em;
+        color: var(--fg1);
+    }
+    h2, .h2 {
+        font-family: var(--font-display);
+        font-weight: 400;
+        font-size: clamp(2rem, 5vw, 4rem);
+        line-height: 1.12;
+        letter-spacing: -0.04em;
+        color: var(--fg1);
+    }
+    h3, .h3 {
+        font-family: var(--font-sans);
+        font-weight: 500;
+        font-size: 1.5rem;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        color: var(--fg1);
+    }
+    a {
+        color: var(--fg1);
+        text-decoration: none;
+        text-underline-offset: 0.2em;
+        transition: color var(--d-fast) var(--ease-out);
+    }
+    a:hover { color: var(--cobalt-300); }
+    ::selection {
+        background: var(--cobalt-500);
+        color: white;
+    }
+}
+
+/* ============================================================
+   LAYOUT UTILITIES
+   ============================================================ */
+.shell {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 4vw, 56px);
+}
+
+.section {
+    padding: clamp(64px, 10vw, 128px) 0;
+    position: relative;
+}
+
+.section + .section {
+    border-top: 1px solid var(--cobalt-border);
+}
+
+/* ============================================================
+   PRISM HERO
+   ============================================================ */
+.prism-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 0;
+}
+
+.hero-grain {
+    position: absolute;
+    inset: 0;
+    background-image: var(--grain-url);
+    mix-blend-mode: overlay;
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hero-fade-bottom {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 200px;
+    background: linear-gradient(180deg, transparent, var(--ink-950));
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ============================================================
+   MARQUEE
+   ============================================================ */
+.marquee {
+    position: relative;
+    overflow: hidden;
+    margin-top: 64px;
+    border-top: 1px solid var(--cobalt-border);
+    border-bottom: 1px solid var(--cobalt-border);
+    padding: 28px 0;
+    mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-track {
+    display: flex;
+    gap: 56px;
+    animation: marquee 40s linear infinite;
+    width: max-content;
+}
+
+.marquee-item {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    letter-spacing: -0.03em;
+    color: var(--fg2);
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 56px;
+}
+
+.marquee-item .sep {
+    color: var(--cobalt-500);
+    font-style: normal;
+    font-family: var(--font-sans);
+}
+
+@keyframes marquee {
+    to { transform: translateX(-50%); }
+}
+
+/* ============================================================
+   REVEAL ANIMATION
+   ============================================================ */
+.reveal-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.5em);
+    transition: opacity 700ms var(--ease-emph), transform 700ms var(--ease-emph);
+}
+
+.reveal-word.in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================================
+   SCROLL CUE
+   ============================================================ */
+.scroll-cue {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg3);
+    z-index: 2;
+}
+
+.scroll-cue .line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(180deg, transparent, var(--fg3));
+    animation: cueline 1.8s var(--ease-out) infinite;
+}
+
+@keyframes cueline {
+    0%   { transform: scaleY(0.2); transform-origin: top; opacity: 0.3; }
+    60%  { transform: scaleY(1);   transform-origin: top; opacity: 1; }
+    61%  { transform: scaleY(1);   transform-origin: bottom; opacity: 1; }
+    100% { transform: scaleY(0);   transform-origin: bottom; opacity: 0.3; }
+}
+
+/* ============================================================
+   PULSING DOT (availability / live indicator)
+   ============================================================ */
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.6; transform: scale(0.85); }
 }

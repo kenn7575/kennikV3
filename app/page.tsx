@@ -1,19 +1,49 @@
-import { Button } from "@/components/ui/button"
+import { Header } from "@/components/sections/header"
+import { Hero } from "@/components/sections/hero"
+import { Services } from "@/components/sections/services"
+import { Problems } from "@/components/sections/problems"
+import { Work } from "@/components/sections/work"
+import { Process } from "@/components/sections/process"
+import { Stack } from "@/components/sections/stack"
+import { Why } from "@/components/sections/why"
+import { Availability } from "@/components/sections/availability"
+import { About } from "@/components/sections/about"
+import { Testimonials } from "@/components/sections/testimonials"
+import { Pricing } from "@/components/sections/pricing"
+import { FAQ } from "@/components/sections/faq"
+import { Contact } from "@/components/sections/contact"
+import { Footer } from "@/components/sections/footer"
 
-export default function Page() {
+import { getProjects } from "@/lib/data/projects"
+import { getPackages } from "@/lib/data/packages"
+import { getFaqs } from "@/lib/data/faq"
+
+export default async function Page() {
+  const [projects, packages, faqs] = await Promise.all([
+    getProjects(),
+    getPackages(),
+    getFaqs(),
+  ])
+
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-        </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
-      </div>
-    </div>
+    <>
+      <Header />
+      <main>
+        <Hero />
+        <Services />
+        <Problems />
+        <Work projects={projects} />
+        <Process />
+        <Stack />
+        <Why />
+        <Availability />
+        <About />
+        <Testimonials />
+        <Pricing packages={packages} />
+        <FAQ items={faqs} />
+        <Contact />
+      </main>
+      <Footer />
+    </>
   )
 }
