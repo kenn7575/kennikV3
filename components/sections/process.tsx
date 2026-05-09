@@ -11,8 +11,10 @@ export async function Process() {
           eyebrow="PROCESS — FROM BRIEF TO SHIP"
           title={
             <>
-              Five steps.{" "}
-              <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>None optional.</em>
+              How do we{" "}
+              <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>
+                do it?
+              </em>
             </>
           }
           description="Same shape, every engagement. The fixed scope and weekly demos are non-negotiable — they're how I keep the work honest."
@@ -23,7 +25,7 @@ export async function Process() {
           {steps.map((step) => (
             <div
               key={step.n}
-              className="relative grid gap-8 transition-colors hover:bg-white/[0.012] group"
+              className="group relative grid gap-8 transition-colors hover:bg-white/[0.012]"
               style={{
                 gridTemplateColumns: "120px 1fr 2fr",
                 padding: "36px 8px 32px",
@@ -33,9 +35,10 @@ export async function Process() {
             >
               {/* Accent line on hover */}
               <div
-                className="absolute left-0 top-0 w-px h-full opacity-0 group-hover:opacity-50 transition-opacity duration-[240ms]"
+                className="absolute top-0 left-0 h-full w-px opacity-0 transition-opacity duration-[240ms] group-hover:opacity-50"
                 style={{
-                  background: "linear-gradient(180deg, transparent, var(--cobalt-500), transparent)",
+                  background:
+                    "linear-gradient(180deg, transparent, var(--cobalt-500), transparent)",
                 }}
               />
 
@@ -62,7 +65,9 @@ export async function Process() {
                 }}
               >
                 {step.t}{" "}
-                <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>— {step.italic}</em>
+                <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>
+                  — {step.italic}
+                </em>
               </h3>
 
               <p

@@ -3,7 +3,10 @@ import { Marquee } from "@/components/ui/marquee"
 import { getStack, getStackMarquee } from "@/lib/data/stack"
 
 export async function Stack() {
-  const [groups, marqueeItems] = await Promise.all([getStack(), getStackMarquee()])
+  const [groups, marqueeItems] = await Promise.all([
+    getStack(),
+    getStackMarquee(),
+  ])
 
   return (
     <section id="stack" className="section">
@@ -12,11 +15,13 @@ export async function Stack() {
           eyebrow="TECH STACK — TOOLS I REACH FOR"
           title={
             <>
-              I pick boring tech,{" "}
-              <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>and use it well.</em>
+              I pick battle tested tech,{" "}
+              <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>
+                that just works.
+              </em>
             </>
           }
-          description="The stack I lean on. None of it's an accident — every one of these has earned its place through a project that would have failed without it."
+          description="The stack I lean on. These are the tools I've used time and time again. If your project needs something else, I can learn it — but these are my go-tos."
           row
         />
 
@@ -36,7 +41,7 @@ export async function Stack() {
               }}
             >
               <div
-                className="flex items-center gap-2.5 mb-3.5"
+                className="mb-3.5 flex items-center gap-2.5"
                 style={{
                   fontFamily: "var(--font-mono)",
                   fontSize: 11,
@@ -47,16 +52,20 @@ export async function Stack() {
               >
                 {g.group}
                 <span
-                  className="flex-1 h-px"
+                  className="h-px flex-1"
                   style={{ background: "var(--cobalt-border)" }}
                 />
               </div>
-              <ul className="list-none p-0 m-0 flex flex-col gap-2.5">
+              <ul className="m-0 flex list-none flex-col gap-2.5 p-0">
                 {g.items.map((item) => (
                   <li
                     key={item}
                     className="flex items-center gap-2.5"
-                    style={{ fontFamily: "var(--font-sans)", fontSize: 16, color: "var(--fg1)" }}
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      fontSize: 16,
+                      color: "var(--fg1)",
+                    }}
                   >
                     <span
                       className="flex-shrink-0"

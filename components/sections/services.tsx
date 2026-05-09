@@ -1,6 +1,10 @@
+"use client"
+
+import { useRef, useEffect, useState } from "react"
 import { Sparkles, Shield, Gauge, Cpu, ArrowRight } from "lucide-react"
 import { SectionHead } from "@/components/ui/section-head"
 import { getServices, type Service } from "@/lib/data/services"
+import { useTilt } from "@/hooks/use-tilt"
 
 const ICON_MAP = {
   spark: Sparkles,
@@ -11,17 +15,57 @@ const ICON_MAP = {
 
 function ServiceCard({ service, index }: { service: Service; index: number }) {
   const Icon = ICON_MAP[service.icon]
+  const tiltRef = useTilt(5)
+  const [hovered, setHovered] = useState(false)
+  const revealRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = revealRef.current
+    if (!el) return
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add("svc-in")
+          obs.disconnect()
+        }
+      },
+      { threshold: 0.15 }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
+
   return (
     <div
-      className="relative flex flex-col gap-4 overflow-hidden transition-all duration-[240ms]"
-      style={{
-        border: "1px solid var(--cobalt-border)",
-        background:
-          "linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0))",
-        borderRadius: "24px 24px 24px 24px / 28px 28px 28px 28px",
-        padding: "32px 30px 28px",
+      ref={(node: HTMLDivElement | null) => {
+        ;(tiltRef as { current: HTMLElement | null }).current = node
+        revealRef.current = node
       }}
+      className="svc-card relative flex flex-col gap-4 overflow-hidden"
+      style={
+        {
+          border: "1px solid var(--cobalt-border)",
+          background:
+            "linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0))",
+          borderRadius: "24px 24px 24px 24px / 28px 28px 28px 28px",
+          padding: "32px 30px 28px",
+          "--stagger": `${index * 90}ms`,
+        } as React.CSSProperties
+      }
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
+      {/* hover border shimmer overlay */}
+      <span
+        aria-hidden
+        className="svc-shimmer pointer-events-none absolute inset-0"
+        style={{
+          borderRadius: "inherit",
+          opacity: hovered ? 1 : 0,
+          transition: "opacity 320ms var(--ease-out)",
+        }}
+      />
+
       <div className="flex items-center justify-between">
         <span
           style={{
@@ -35,17 +79,26 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           SERVICE / {String(index + 1).padStart(2, "0")}
         </span>
         <span
-          className="inline-flex items-center justify-center"
+          className="svc-icon inline-flex items-center justify-center"
           style={{
             width: 44,
             height: 44,
             borderRadius: 14,
             border: "1px solid var(--cobalt-border-hi)",
-            background: "rgba(2,59,230,0.08)",
-            color: "var(--cobalt-300)",
+            background: hovered ? "rgba(2,59,230,0.18)" : "rgba(2,59,230,0.08)",
+            color: hovered ? "var(--cobalt-200)" : "var(--cobalt-300)",
+            boxShadow: hovered ? "var(--glow-cobalt-soft)" : "none",
+            transition:
+              "background 280ms var(--ease-out), color 280ms var(--ease-out), box-shadow 280ms var(--ease-out)",
           }}
         >
-          <Icon size={20} />
+          <Icon
+            size={20}
+            style={{
+              transform: hovered ? "scale(1.12)" : "scale(1)",
+              transition: "transform 280ms var(--ease-spring)",
+            }}
+          />
         </span>
       </div>
 
@@ -93,7 +146,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
         >
           Examples
         </span>
-        {service.examples.map((e) => (
+        {service.examples.map((e, ei) => (
           <span
             key={e}
             className="inline-flex items-center gap-2"
@@ -102,15 +155,19 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
               fontSize: 13,
               color: "var(--fg2)",
               lineHeight: 1.4,
+              opacity: hovered ? 1 : 0.85,
+              transform: hovered ? "translateX(0)" : "translateX(-2px)",
+              transition: `opacity 200ms var(--ease-out) ${ei * 30}ms, transform 200ms var(--ease-out) ${ei * 30}ms`,
             }}
           >
             <span
               style={{
                 width: 3,
                 height: 3,
-                background: "var(--fg3)",
+                background: hovered ? "var(--cobalt-300)" : "var(--fg3)",
                 borderRadius: 999,
                 flexShrink: 0,
+                transition: "background 200ms var(--ease-out)",
               }}
             />
             {e}
@@ -173,17 +230,31 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
         <span>TYPICAL · {service.duration}</span>
         <span
           className="inline-flex items-center gap-1.5"
-          style={{ color: "var(--fg2)" }}
+          style={{
+            color: hovered ? "var(--cobalt-300)" : "var(--fg2)",
+            transition: "color 200ms var(--ease-out)",
+          }}
         >
-          Discuss <ArrowRight size={14} />
+          Discuss{" "}
+          <ArrowRight
+            size={14}
+            style={{
+              transform: hovered ? "translateX(3px)" : "translateX(0)",
+              transition: "transform 240ms var(--ease-spring)",
+            }}
+          />
         </span>
       </div>
     </div>
   )
 }
 
-export async function Services() {
-  const services = await getServices()
+export function Services() {
+  const [services, setServices] = useState<Service[]>([])
+
+  useEffect(() => {
+    getServices().then(setServices)
+  }, [])
 
   return (
     <section id="services" className="section">
@@ -193,9 +264,12 @@ export async function Services() {
           title={
             <>
               You have the ideas{" "}
-              <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>
+              <span
+                style={{ fontStyle: "italic" }}
+                className="text-primary text-shadow-white"
+              >
                 I have the skills.
-              </em>
+              </span>
             </>
           }
           description="I keep the menu small on purpose. If your project doesn't fit cleanly into one of these, let's talk anyway — sometimes it's two of them stitched together."

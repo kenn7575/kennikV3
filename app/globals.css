@@ -333,6 +333,47 @@
 }
 
 /* ============================================================
+   SERVICE CARDS
+   ============================================================ */
+.svc-card {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+        opacity 520ms var(--ease-out) var(--stagger, 0ms),
+        transform 520ms var(--ease-out) var(--stagger, 0ms),
+        border-color 240ms var(--ease-out),
+        box-shadow 240ms var(--ease-out);
+}
+
+.svc-card.svc-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.svc-card:hover {
+    border-color: var(--cobalt-border-hi) !important;
+    box-shadow: var(--glow-cobalt-soft);
+}
+
+.svc-shimmer {
+    background: linear-gradient(
+        135deg,
+        rgba(2, 59, 230, 0.06) 0%,
+        rgba(90, 130, 251, 0.03) 50%,
+        transparent 100%
+    );
+    border-radius: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .svc-card {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* ============================================================
    REVEAL ANIMATION
    ============================================================ */
 .reveal-word {

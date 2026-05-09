@@ -17,12 +17,14 @@ import { Footer } from "@/components/sections/footer"
 import { getProjects } from "@/lib/data/projects"
 import { getPackages } from "@/lib/data/packages"
 import { getFaqs } from "@/lib/data/faq"
+import { getProjectStats } from "@/lib/data/stats"
 
 export default async function Page() {
-  const [projects, packages, faqs] = await Promise.all([
+  const [projects, packages, faqs, stats] = await Promise.all([
     getProjects(),
     getPackages(),
     getFaqs(),
+    getProjectStats(),
   ])
 
   return (
@@ -32,7 +34,7 @@ export default async function Page() {
         <Hero />
         <Services />
         <Problems />
-        <Work projects={projects} />
+        <Work projects={projects} stats={stats} />
         <Process />
         <Stack />
         <Why />

@@ -6,17 +6,63 @@ export type StackGroup = {
 }
 
 const STACK: StackGroup[] = [
-  { group: "Languages",   items: ["TypeScript", "Rust", "Python", "Go", "SQL"] },
-  { group: "Frameworks",  items: ["Next.js", "Remix", "Astro", "Hono", "FastAPI", "Rails"] },
-  { group: "Data",        items: ["Postgres", "ClickHouse", "Redis", "pgvector", "DuckDB"] },
-  { group: "Infra",       items: ["Fly.io", "Cloudflare", "AWS", "Vercel", "Docker", "Terraform"] },
-  { group: "AI",          items: ["Anthropic", "OpenAI", "Modal", "LangGraph", "Eval-harness"] },
-  { group: "DX",          items: ["pnpm", "Turborepo", "Vitest", "Playwright", "GH Actions"] },
+  {
+    group: "Languages",
+    items: ["TypeScript", "Python", "Dart", "SQL", "C#", "Swift"],
+  },
+  {
+    group: "Frameworks",
+    items: ["Next.js", "Svelte", "Flutter", "React Native", "React"],
+  },
+  {
+    group: "Data",
+    items: ["Postgres", "MySQL", "Redis", "Firebase", "Supabase", "Neo4j"],
+  },
+  {
+    group: "Infra",
+    items: ["Vercel", "AWS", "Azure", "Firebase", "Docker"],
+  },
+  {
+    group: "AI",
+    items: ["Anthropic", "OpenAI", "Vercel AI SDK", "Ollama"],
+  },
+  {
+    group: "DX",
+    items: ["npm", "Vitest", "CI/CD", "GitHub Actions", "TailwindCSS"],
+  },
 ]
 
 const STACK_MARQUEE = [
-  "Postgres", "TypeScript", "Rust", "Next.js", "ClickHouse",
-  "Anthropic", "Cloudflare", "Fly.io", "pgvector", "Remix",
+  "Postgres",
+  "TypeScript",
+  "Python",
+  "Dart",
+  "Next.js",
+  "Svelte",
+  "Flutter",
+  "React Native",
+  "React",
+  "Postgres",
+  "MySQL",
+  "Redis",
+  "Firebase",
+  "Supabase",
+  "Neo4j",
+  "Vercel",
+  "AWS",
+  "Azure",
+  "Firebase",
+  "Docker",
+  "Anthropic",
+  "OpenAI",
+  "Vercel AI SDK",
+  "Ollama",
+  "npm",
+  "Vitest",
+  "CI/CD",
+  "GitHub Actions",
+  "TailwindCSS",
+  "Remix",
 ]
 
 export async function getStack(): Promise<StackGroup[]> {

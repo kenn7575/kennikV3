@@ -5,6 +5,7 @@ import { Tag } from "@/components/ui/tag"
 import { SectionHead } from "@/components/ui/section-head"
 import { useTilt } from "@/hooks/use-tilt"
 import type { Project } from "@/lib/data/projects"
+import type { ProjectStat } from "@/lib/data/stats"
 
 function ProjectCard({ project }: { project: Project }) {
   const tiltRef = useTilt(4)
@@ -13,7 +14,7 @@ function ProjectCard({ project }: { project: Project }) {
     <a
       ref={tiltRef as React.RefObject<HTMLAnchorElement>}
       href={`#case/${project.slug}`}
-      className="relative flex flex-col gap-6 no-underline text-inherit transition-all duration-[240ms] cursor-pointer group"
+      className="group relative flex cursor-pointer flex-col gap-6 text-inherit no-underline transition-all duration-[240ms]"
       style={{
         borderRadius: "28px 28px 28px 28px / 32px 32px 32px 32px",
         border: "1px solid var(--cobalt-border)",
@@ -24,7 +25,7 @@ function ProjectCard({ project }: { project: Project }) {
     >
       {/* Halo */}
       <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-70 transition-opacity duration-[480ms] pointer-events-none"
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-[480ms] group-hover:opacity-70"
         style={{ background: "var(--mesh-soft)", borderRadius: "inherit" }}
       />
 
@@ -37,7 +38,10 @@ function ProjectCard({ project }: { project: Project }) {
           border: "1px solid var(--cobalt-border)",
         }}
       >
-        <div className="absolute inset-0" style={{ background: project.cover }} />
+        <div
+          className="absolute inset-0"
+          style={{ background: project.cover }}
+        />
         <div
           className="absolute inset-0"
           style={{
@@ -62,7 +66,7 @@ function ProjectCard({ project }: { project: Project }) {
       </div>
 
       {/* Content */}
-      <div className="relative z-[1] flex justify-between items-start gap-4">
+      <div className="relative z-[1] flex items-start justify-between gap-4">
         <div>
           <h3
             style={{
@@ -76,12 +80,21 @@ function ProjectCard({ project }: { project: Project }) {
             }}
           >
             {project.name}{" "}
-            <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>— {project.italic}</em>
+            <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>
+              — {project.italic}
+            </em>
           </h3>
-          <p style={{ margin: "8px 0 0", color: "var(--fg2)", fontSize: 14.5, lineHeight: 1.5 }}>
+          <p
+            style={{
+              margin: "8px 0 0",
+              color: "var(--fg2)",
+              fontSize: 14.5,
+              lineHeight: 1.5,
+            }}
+          >
             {project.desc}
           </p>
-          <div className="flex gap-2 flex-wrap mt-3.5">
+          <div className="mt-3.5 flex flex-wrap gap-2">
             <Tag>{project.year}</Tag>
             <Tag>{project.duration}</Tag>
             <Tag dot={project.status === "LIVE"} strong>
@@ -90,7 +103,7 @@ function ProjectCard({ project }: { project: Project }) {
           </div>
         </div>
         <span
-          className="inline-flex items-center justify-center flex-shrink-0 transition-all duration-[240ms] group-hover:rotate-[-45deg] group-hover:bg-[--cobalt-500] group-hover:border-[--cobalt-500] group-hover:text-white"
+          className="inline-flex flex-shrink-0 items-center justify-center transition-all duration-[240ms] group-hover:rotate-[-45deg] group-hover:border-[--cobalt-500] group-hover:bg-[--cobalt-500] group-hover:text-white"
           style={{
             width: 44,
             height: 44,
@@ -105,17 +118,10 @@ function ProjectCard({ project }: { project: Project }) {
   )
 }
 
-function StatsRibbon() {
-  const stats = [
-    { v: "42+", label: "SHIPPED PROJECTS · CAREER" },
-    { v: "€2.4M", label: "CLIENT ARR INFLUENCED · 2025" },
-    { v: "96%", label: "REPEAT-CLIENT RATE · 5 YR" },
-    { v: "0", label: "P0 INCIDENTS · LAST 18 MOS" },
-  ]
-
+function StatsRibbon({ stats }: { stats: ProjectStat[] }) {
   return (
     <div
-      className="grid mt-14"
+      className="mt-14 grid"
       style={{
         gridTemplateColumns: "repeat(4, 1fr)",
         borderTop: "1px solid var(--cobalt-border)",
@@ -125,9 +131,12 @@ function StatsRibbon() {
       {stats.map((s, i) => (
         <div
           key={s.label}
-          className="flex flex-col gap-1.5 py-7 px-5"
+          className="flex flex-col gap-1.5 px-5 py-7"
           style={{
-            borderRight: i < stats.length - 1 ? "1px solid var(--cobalt-border-lo)" : "none",
+            borderRight:
+              i < stats.length - 1
+                ? "1px solid var(--cobalt-border-lo)"
+                : "none",
           }}
         >
           <span
@@ -160,9 +169,10 @@ function StatsRibbon() {
 
 type WorkProps = {
   projects: Project[]
+  stats: ProjectStat[]
 }
 
-export function Work({ projects }: WorkProps) {
+export function Work({ projects, stats }: WorkProps) {
   return (
     <section id="work" className="section">
       <div className="shell">
@@ -170,18 +180,21 @@ export function Work({ projects }: WorkProps) {
           eyebrow="FEATURED PROJECTS · 2024 — 2026"
           title={
             <>
-              Things I&apos;ve <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>built lately.</em>
+              Things I&apos;ve{" "}
+              <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>
+                built lately.
+              </em>
             </>
           }
           description="A small slice — each one shipped, each one hurt a little. Click through for the post-mortems and the actual numbers."
           row
         />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {projects.map((p) => (
             <ProjectCard key={p.slug} project={p} />
           ))}
         </div>
-        <StatsRibbon />
+        <StatsRibbon stats={stats} />
       </div>
     </section>
   )

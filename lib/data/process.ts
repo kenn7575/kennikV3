@@ -16,27 +16,33 @@ const PROCESS: ProcessStep[] = [
   },
   {
     n: "02",
-    t: "Scope",
-    italic: "fixed in writing.",
-    body: "I send a one-page brief: what I'll build, what I won't, what it costs, when it ships. You sign or you don't.",
+    t: "Meeting",
+    italic: "We talk it out.",
+    body: "I ask a lot of questions. We figure out what to build, how to measure success, and what the timeline looks like. I send a proposal within 48 hours.",
   },
   {
     n: "03",
-    t: "Build",
-    italic: "weekly demos.",
-    body: "I work in main. You see a deployed preview every Friday. If it's wrong, we know on day 7 — not day 56.",
+    t: "Initiate project",
+    italic: "in writing.",
+    body: "I send a scoped proposal with deliverables, timeline, and cost. We sign it. I invoice 50% upfront, 50% on delivery.",
   },
   {
     n: "04",
-    t: "Ship",
-    italic: "to production.",
-    body: "Final check, observability dialed in, docs written. I'm on Slack for the first launch week. Then you own it.",
+    t: "Build",
+    italic: "Weekly updates.",
+    body: "I start working on the project. I send progress reports and visuals every week, and potentially ask for feedback or decisions as I go.",
   },
   {
     n: "05",
+    t: "Ship",
+    italic: "to production.",
+    body: "Final check, delivery and deployment. I make sure everything is working in production, and I provide documentation and a walkthrough to make sure you can maintain it after I'm gone.",
+  },
+  {
+    n: "06",
     t: "After",
     italic: "a month of warranty.",
-    body: "30 days of bug fixes on me. After that we either book another engagement or I get out of the way.",
+    body: "30 days of bug fixes on me. Maintenance and support after the warranty period can be arranged for a monthly retainer if needed, but most clients don't.",
   },
 ]
 

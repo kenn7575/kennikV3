@@ -86,8 +86,8 @@ const SERVICES: Service[] = [
     examples: [
       "Automatically pull data from incoming emails",
       "A chatbot that answers from your own docs",
-      "Flag leads that are ready to buy without lifting a finger",
       "Summarise and categorise documents as they come in",
+      "Get images analyzed with custom labels and metadata extracted",
     ],
     icon: "ai",
     duration: "4–10 weeks",
