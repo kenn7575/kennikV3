@@ -6,14 +6,19 @@ export type Problem = {
 }
 
 const PROBLEMS: Problem[] = [
-  { p: "the checkout takes 3.4s", s: "I get it under 800ms." },
-  { p: "the dashboard query times out", s: "I rewrite the schema, add the index." },
-  { p: "the build pipeline is 22 minutes", s: "I get it under 4." },
-  { p: "the codebase has no tests", s: "I add the ones that matter, not all of them." },
-  { p: "a contractor left mid-sprint", s: "I pick up the branch and ship it." },
-  { p: "the AI feature works in demos only", s: "I write the evals and the off-ramp." },
-  { p: "the migration plan is a Notion doc", s: "I write the runbook and run it." },
-  { p: "the founder is the only senior dev", s: "I'm the second pair of eyes for 8 weeks." },
+  { p: "We site don't get any visitors", s: "Let me fix your SEO." },
+  { p: "I vibe coded a project, but is it secure?", s: "I can review your code and fix vulnerabilities." },
+  { p: "My website needs a redesign", s: "I can create a modern, user-friendly design." },
+  { p: "We need a mobile app", s: "I can build a cross-platform mobile app." },
+  { p: "Our site is too slow", s: "I can improve your site's performance." },
+  { p: "We have the world's messiest Excel sheets", s: "That could be a web app instead." },
+  { p: "I need a quick demo for my side project", s: "I can build a functional prototype quickly." },
+  {p: "We built it ourselves and now it's a mess", s: "I can clean up your codebase and make it maintainable."},
+  {p:"We're paying too much for our infrastructure", s: "I can optimize your hosting and save you money."},
+  {p:"We need to automate this repetitive internal process", s: "I can build a tool to automate it and save you time."},
+  {p: "We got hacked, or we're worried we will be", s: "I can audit your security and fix vulnerabilities."},
+  {p: "We have data but can't make sense of it", s: "I can build a dashboard to visualize your data and help you make informed decisions."},
+
 ]
 
 export async function getProblems(): Promise<Problem[]> {

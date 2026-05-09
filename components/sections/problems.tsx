@@ -13,7 +13,7 @@ export async function Problems() {
           title={
             <>
               If something here{" "}
-              <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>sounds familiar</em>
+              <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>sounds interesting</em>
               , we should talk.
             </>
           }

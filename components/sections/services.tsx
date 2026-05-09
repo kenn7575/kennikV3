@@ -78,9 +78,63 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
       </p>
 
       <div
+        className="flex flex-col gap-1.5"
+        style={{ borderTop: "1px dashed var(--cobalt-border)", paddingTop: 18 }}
+      >
+        <span
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: 10,
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            color: "var(--fg3)",
+            marginBottom: 4,
+          }}
+        >
+          Examples
+        </span>
+        {service.examples.map((e) => (
+          <span
+            key={e}
+            className="inline-flex items-center gap-2"
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 13,
+              color: "var(--fg2)",
+              lineHeight: 1.4,
+            }}
+          >
+            <span
+              style={{
+                width: 3,
+                height: 3,
+                background: "var(--fg3)",
+                borderRadius: 999,
+                flexShrink: 0,
+              }}
+            />
+            {e}
+          </span>
+        ))}
+      </div>
+
+      <div
         className="mt-auto flex flex-wrap gap-1.5"
         style={{ borderTop: "1px dashed var(--cobalt-border)", paddingTop: 18 }}
       >
+        <span
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: 10,
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            color: "var(--fg3)",
+            width: "100%",
+            marginBottom: 4,
+          }}
+        >
+          Deliverables
+        </span>
         {service.deliverables.map((d) => (
           <span
             key={d}

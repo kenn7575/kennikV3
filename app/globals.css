@@ -182,33 +182,6 @@
     --sidebar-ring: #023BE6;
 }
 
-/* Light mode overrides (if toggled) */
-.light {
-    --background: #F5F6F8;
-    --foreground: #08090F;
-    --card: #FFFFFF;
-    --card-foreground: #08090F;
-    --primary: #023BE6;
-    --primary-foreground: #FFFFFF;
-    --secondary: #E4E6EC;
-    --secondary-foreground: #08090F;
-    --muted: #E4E6EC;
-    --muted-foreground: #5C6273;
-    --accent: #EAF0FF;
-    --accent-foreground: #023BE6;
-    --border: rgba(0, 0, 0, 0.1);
-    --input: rgba(0, 0, 0, 0.08);
-    --ring: #023BE6;
-    --bg: #F5F6F8;
-    --surface: #FFFFFF;
-    --fg1: #08090F;
-    --fg2: #3A3F4D;
-    --fg3: #5C6273;
-    --cobalt-border: rgba(0, 0, 0, 0.1);
-    --cobalt-border-hi: rgba(0, 0, 0, 0.18);
-    --cobalt-border-lo: rgba(0, 0, 0, 0.04);
-}
-
 @layer base {
     * {
         @apply border-border outline-ring/50;
