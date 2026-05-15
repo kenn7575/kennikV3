@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation"
+import Link from "next/link"
 import { getSession } from "@/lib/session"
 import { LogoutButton } from "./_components/logout-button"
 
@@ -58,6 +59,7 @@ export default async function AdminDashboard() {
         <LogoutButton />
       </header>
 
+      <style>{`.section-card:hover { border-color: var(--cobalt-500) !important; }`}</style>
       <section>
         <p
           style={{
@@ -79,8 +81,10 @@ export default async function AdminDashboard() {
           }}
         >
           {sections.map((s) => (
-            <div
+            <Link
               key={s.id}
+              href={`/admin/dashboard/${s.id}`}
+              className="section-card"
               style={{
                 padding: "20px 24px",
                 borderRadius: 16,
@@ -89,6 +93,8 @@ export default async function AdminDashboard() {
                 display: "flex",
                 flexDirection: "column",
                 gap: 6,
+                textDecoration: "none",
+                transition: "border-color 0.15s",
               }}
             >
               <span
@@ -110,7 +116,7 @@ export default async function AdminDashboard() {
               >
                 {s.description}
               </span>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
