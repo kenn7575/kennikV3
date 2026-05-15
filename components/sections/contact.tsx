@@ -18,7 +18,8 @@ const fieldStyle = {
   color: "var(--fg1)",
   outline: "none",
   width: "100%",
-  transition: "border-color var(--d-base) var(--ease-out), box-shadow var(--d-base)",
+  transition:
+    "border-color var(--d-base) var(--ease-out), box-shadow var(--d-base)",
 }
 
 const labelStyle = {
@@ -39,11 +40,18 @@ type FormState = {
 }
 
 export function Contact() {
-  const [form, setForm] = useState<FormState>({ name: "", email: "", project: "", message: "" })
+  const [form, setForm] = useState<FormState>({
+    name: "",
+    email: "",
+    project: "",
+    message: "",
+  })
   const [sent, setSent] = useState(false)
 
-  const set = (key: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    setForm((prev) => ({ ...prev, [key]: e.target.value }))
+  const set =
+    (key: keyof FormState) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setForm((prev) => ({ ...prev, [key]: e.target.value }))
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -58,7 +66,9 @@ export function Contact() {
           title={
             <>
               Drop a line — I read{" "}
-              <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>every email.</em>
+              <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>
+                every email.
+              </em>
             </>
           }
         />
@@ -86,7 +96,9 @@ export function Contact() {
                 }}
               >
                 Got it — I&apos;ll reply{" "}
-                <em style={{ fontStyle: "italic", color: "var(--cobalt-300)" }}>within a day.</em>
+                <em style={{ fontStyle: "italic", color: "var(--cobalt-300)" }}>
+                  within a day.
+                </em>
               </div>
               <p style={{ color: "var(--fg2)", margin: 0 }}>
                 In the meantime, if you want to share more — a brief, a repo, a
@@ -95,8 +107,11 @@ export function Contact() {
               <div>
                 <Button
                   variant="outline"
-                  className="rounded-full border-[--cobalt-border-hi] text-[--fg1] bg-transparent hover:bg-white/5"
-                  onClick={() => { setSent(false); setForm({ name: "", email: "", project: "", message: "" }) }}
+                  className="rounded-full border-[--cobalt-border-hi] bg-transparent text-[--fg1] hover:bg-white/5"
+                  onClick={() => {
+                    setSent(false)
+                    setForm({ name: "", email: "", project: "", message: "" })
+                  }}
                 >
                   Send another
                 </Button>
@@ -107,16 +122,35 @@ export function Contact() {
               <div className="grid grid-cols-2 gap-5">
                 <div>
                   <label style={labelStyle}>NAME</label>
-                  <input style={fieldStyle} value={form.name} onChange={set("name")} placeholder="Your name" required />
+                  <input
+                    style={fieldStyle}
+                    value={form.name}
+                    onChange={set("name")}
+                    placeholder="Your name"
+                    required
+                  />
                 </div>
                 <div>
                   <label style={labelStyle}>EMAIL</label>
-                  <input type="email" style={fieldStyle} value={form.email} onChange={set("email")} placeholder="hi@yourcompany.com" required />
+                  <input
+                    type="email"
+                    style={fieldStyle}
+                    value={form.email}
+                    onChange={set("email")}
+                    placeholder="hi@yourcompany.com"
+                    required
+                  />
                 </div>
               </div>
               <div>
                 <label style={labelStyle}>PROJECT (1 LINE)</label>
-                <input style={fieldStyle} value={form.project} onChange={set("project")} placeholder="e.g. fix our slow checkout" required />
+                <input
+                  style={fieldStyle}
+                  value={form.project}
+                  onChange={set("project")}
+                  placeholder="e.g. fix our slow checkout"
+                  required
+                />
               </div>
               <div>
                 <label style={labelStyle}>MESSAGE</label>
@@ -129,12 +163,16 @@ export function Contact() {
                   required
                 />
               </div>
-              <div className="flex justify-between items-center mt-2 flex-wrap gap-3">
+              <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
                 <Tag>EXPECTED REPLY · &lt; 24H</Tag>
                 <Button
                   type="submit"
-                  className="rounded-full gap-2 bg-[--cobalt-500] hover:bg-[--cobalt-400] text-white border-0"
-                  style={{ padding: "13px 24px", fontSize: 14, boxShadow: "var(--glow-cobalt-soft)" }}
+                  className="gap-2 rounded-full border-0 bg-[--cobalt-500] text-white hover:bg-[--cobalt-400]"
+                  style={{
+                    padding: "13px 24px",
+                    fontSize: 14,
+                    boxShadow: "var(--glow-cobalt-soft)",
+                  }}
                 >
                   Send it
                   <ArrowUpRight size={16} />
@@ -148,15 +186,18 @@ export function Contact() {
               {
                 label: "EMAIL",
                 content: (
-                  <a href="mailto:hi@kennik.dk" style={{ fontSize: 18, color: "var(--fg1)" }}>
-                    hi@kennik.dk
+                  <a
+                    href="mailto:hi@kennik.dk"
+                    style={{ fontSize: 18, color: "var(--fg1)" }}
+                  >
+                    info@kennik.dk
                   </a>
                 ),
               },
               {
                 label: "SOCIAL",
                 content: (
-                  <div className="flex gap-5 flex-wrap">
+                  <div className="flex flex-wrap gap-5">
                     {[
                       { icon: <Globe size={16} />, label: "github" },
                       { icon: <Globe size={16} />, label: "linkedin" },
@@ -178,8 +219,12 @@ export function Contact() {
                 label: "BOOKING WINDOW",
                 content: (
                   <>
-                    <div style={{ fontSize: 16, color: "var(--fg1)" }}>Q3 2026 — Q1 2027</div>
-                    <div style={{ fontSize: 14, color: "var(--fg3)" }}>Two slots open · 8–12 week engagements</div>
+                    <div style={{ fontSize: 16, color: "var(--fg1)" }}>
+                      Q3 2026 — Q1 2027
+                    </div>
+                    <div style={{ fontSize: 14, color: "var(--fg3)" }}>
+                      Two slots open · 8–12 week engagements
+                    </div>
                   </>
                 ),
               },

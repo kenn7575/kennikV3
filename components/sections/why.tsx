@@ -1,8 +1,8 @@
 import { SectionHead } from "@/components/ui/section-head"
-import { getWhyReasons } from "@/lib/data/why"
+import { getValueReasons } from "@/lib/data/values"
 
 export async function Why() {
-  const reasons = await getWhyReasons()
+  const reasons = await getValueReasons()
 
   return (
     <section id="why" className="section">
@@ -11,13 +11,13 @@ export async function Why() {
           eyebrow="WHY WORK WITH ME — THE HONEST PITCH"
           title={
             <>
-              What you get when{" "}
+              Why my services{" "}
               <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>
-                you don&apos;t get an agency.
+                are different.
               </em>
             </>
           }
-          description="Six things that are unusually true of working with one independent senior — and unusually rare in agency-shaped engagements."
+          description="I could tell you I'm reliable, efficient, and easy to work with — but that's what every other freelancer says. Here's what makes me different."
           row
         />
 
@@ -63,7 +63,14 @@ export async function Why() {
               >
                 {w.t}
               </h3>
-              <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: "var(--fg2)" }}>
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: 15,
+                  lineHeight: 1.6,
+                  color: "var(--fg2)",
+                }}
+              >
                 {w.b}
               </p>
             </div>

@@ -13,7 +13,7 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <a
       ref={tiltRef as React.RefObject<HTMLAnchorElement>}
-      href={`#case/${project.slug}`}
+      href={`/work/${project.slug}`}
       className="group relative flex cursor-pointer flex-col gap-6 text-inherit no-underline transition-all duration-[240ms]"
       style={{
         borderRadius: "28px 28px 28px 28px / 32px 32px 32px 32px",
