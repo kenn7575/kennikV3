@@ -1,17 +1,18 @@
 "use server"
 
+import { unstable_cache } from "next/cache"
+import { prisma } from "@/lib/prisma"
+
 export type ProjectStat = {
   v: string
   label: string
 }
 
-const STATS: ProjectStat[] = [
-  { v: "42+", label: "SHIPPED PROJECTS · CAREER" },
-  { v: "€2.4M", label: "CLIENT ARR INFLUENCED · 2025" },
-  { v: "96%", label: "REPEAT-CLIENT RATE · 5 YR" },
-  { v: "0", label: "P0 INCIDENTS · LAST 18 MOS" },
-]
-
-export async function getProjectStats(): Promise<ProjectStat[]> {
-  return STATS
-}
+export const getProjectStats = unstable_cache(
+  async (): Promise<ProjectStat[]> => {
+    const rows = await prisma.projectStat.findMany({ orderBy: { order: "asc" } })
+    return rows.map((row) => ({ v: row.v, label: row.label }))
+  },
+  ["project-stats"],
+  { revalidate: 3600, tags: ["project-stats"] },
+)

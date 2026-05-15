@@ -1,74 +1,27 @@
 "use server"
 
+import { unstable_cache } from "next/cache"
+import { prisma } from "@/lib/prisma"
+
 export type StackGroup = {
   group: string
   items: string[]
 }
 
-const STACK: StackGroup[] = [
-  {
-    group: "Languages",
-    items: ["TypeScript", "Python", "Dart", "SQL", "C#", "Swift"],
+export const getStack = unstable_cache(
+  async (): Promise<StackGroup[]> => {
+    const rows = await prisma.stackGroup.findMany({ orderBy: { order: "asc" } })
+    return rows.map((row) => ({ group: row.group, items: row.items }))
   },
-  {
-    group: "Frameworks",
-    items: ["Next.js", "Svelte", "Flutter", "React Native", "React"],
-  },
-  {
-    group: "Data",
-    items: ["Postgres", "MySQL", "Redis", "Firebase", "Supabase", "Neo4j"],
-  },
-  {
-    group: "Infra",
-    items: ["Vercel", "AWS", "Azure", "Firebase", "Docker"],
-  },
-  {
-    group: "AI",
-    items: ["Anthropic", "OpenAI", "Vercel AI SDK", "Ollama"],
-  },
-  {
-    group: "DX",
-    items: ["npm", "Vitest", "CI/CD", "GitHub Actions", "TailwindCSS"],
-  },
-]
+  ["stack"],
+  { revalidate: 3600, tags: ["stack"] },
+)
 
-const STACK_MARQUEE = [
-  "Postgres",
-  "TypeScript",
-  "Python",
-  "Dart",
-  "Next.js",
-  "Svelte",
-  "Flutter",
-  "React Native",
-  "React",
-  "Postgres",
-  "MySQL",
-  "Redis",
-  "Firebase",
-  "Supabase",
-  "Neo4j",
-  "Vercel",
-  "AWS",
-  "Azure",
-  "Firebase",
-  "Docker",
-  "Anthropic",
-  "OpenAI",
-  "Vercel AI SDK",
-  "Ollama",
-  "npm",
-  "Vitest",
-  "CI/CD",
-  "GitHub Actions",
-  "TailwindCSS",
-  "Remix",
-]
-
-export async function getStack(): Promise<StackGroup[]> {
-  return STACK
-}
-
-export async function getStackMarquee(): Promise<string[]> {
-  return STACK_MARQUEE
-}
+export const getStackMarquee = unstable_cache(
+  async (): Promise<string[]> => {
+    const rows = await prisma.stackMarqueeItem.findMany({ orderBy: { order: "asc" } })
+    return rows.map((row) => row.name)
+  },
+  ["stack-marquee"],
+  { revalidate: 3600, tags: ["stack"] },
+)

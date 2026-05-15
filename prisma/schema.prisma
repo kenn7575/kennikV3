@@ -1,0 +1,140 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Faq {
+  id    Int    @id @default(autoincrement())
+  order Int
+  q     String
+  a     String
+
+  @@map("faqs")
+}
+
+model Package {
+  id       String   @id
+  order    Int
+  name     String
+  italic   String
+  price    String
+  duration String
+  blurb    String
+  includes String[]
+  cta      String
+  featured Boolean
+
+  @@map("packages")
+}
+
+model Testimonial {
+  id       Int    @id @default(autoincrement())
+  order    Int
+  quote    String
+  who      String
+  co       String
+  initials String
+
+  @@map("testimonials")
+}
+
+model Service {
+  id           String   @id
+  order        Int
+  title        String
+  italic       String
+  desc         String
+  deliverables String[]
+  examples     String[]
+  icon         String
+  duration     String
+
+  @@map("services")
+}
+
+model ProjectStat {
+  id    Int    @id @default(autoincrement())
+  order Int
+  v     String
+  label String
+
+  @@map("project_stats")
+}
+
+model ProcessStep {
+  id     Int    @id @default(autoincrement())
+  order  Int
+  n      String
+  t      String
+  italic String
+  body   String
+
+  @@map("process_steps")
+}
+
+model StackGroup {
+  id    Int      @id @default(autoincrement())
+  order Int
+  group String
+  items String[]
+
+  @@map("stack_groups")
+}
+
+model StackMarqueeItem {
+  id    Int    @id @default(autoincrement())
+  order Int
+  name  String
+
+  @@map("stack_marquee_items")
+}
+
+model ValueReason {
+  id    Int    @id @default(autoincrement())
+  order Int
+  t     String
+  b     String
+
+  @@map("value_reasons")
+}
+
+model Problem {
+  id    Int    @id @default(autoincrement())
+  order Int
+  p     String
+  s     String
+
+  @@map("problems")
+}
+
+model Project {
+  slug     String        @id
+  order    Int
+  name     String
+  italic   String
+  desc     String
+  cover    String
+  monogram String
+  year     String
+  duration String
+  status   ProjectStatus
+  stack    String[]
+  role     String?
+  client   String?
+  url      String?
+  hero     Json?
+  sections Json?
+  related  Json?
+
+  @@map("projects")
+}
+
+enum ProjectStatus {
+  LIVE
+  RESCUED
+  STEALTH
+}

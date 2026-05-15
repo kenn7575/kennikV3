@@ -36,11 +36,14 @@ export function About() {
             }}
           >
             <Grainient
+              warpAmplitude={30}
+              warpFrequency={5}
+              timeSpeed={0.3}
               color1="#FF9FFC"
               color2="#5227FF"
               color3="#023BE6"
               grainAmount={0.08}
-              warpStrength={1.2}
+              warpStrength={4}
               className="absolute inset-0"
             />
             <Image
