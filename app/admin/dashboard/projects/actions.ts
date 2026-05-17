@@ -57,8 +57,7 @@ export async function createProject(
   if (!heroResult.ok) return { error: heroResult.error }
   const sectionsResult = parseJson(fd.get("sections") as string, "sections")
   if (!sectionsResult.ok) return { error: sectionsResult.error }
-  const relatedResult = parseJson(fd.get("related") as string, "related")
-  if (!relatedResult.ok) return { error: relatedResult.error }
+  const relatedSlugs = parseList(fd.get("relatedSlugs") as string)
 
   try {
     await prisma.project.create({
@@ -79,7 +78,7 @@ export async function createProject(
         url,
         hero: heroResult.value ?? undefined,
         sections: sectionsResult.value ?? undefined,
-        related: relatedResult.value ?? undefined,
+        relatedSlugs,
       },
     })
   } catch {
@@ -119,8 +118,7 @@ export async function updateProject(
   if (!heroResult.ok) return { error: heroResult.error }
   const sectionsResult = parseJson(fd.get("sections") as string, "sections")
   if (!sectionsResult.ok) return { error: sectionsResult.error }
-  const relatedResult = parseJson(fd.get("related") as string, "related")
-  if (!relatedResult.ok) return { error: relatedResult.error }
+  const relatedSlugs = parseList(fd.get("relatedSlugs") as string)
 
   await prisma.project.update({
     where: { slug },
@@ -140,7 +138,7 @@ export async function updateProject(
       url,
       hero: heroResult.value ?? undefined,
       sections: sectionsResult.value ?? undefined,
-      related: relatedResult.value ?? undefined,
+      relatedSlugs,
     },
   })
   revalidateTag("projects", "max")
@@ -174,8 +172,7 @@ export async function updateProjectNoRedirect(
   if (!heroResult.ok) return { error: heroResult.error }
   const sectionsResult = parseJson(fd.get("sections") as string, "sections")
   if (!sectionsResult.ok) return { error: sectionsResult.error }
-  const relatedResult = parseJson(fd.get("related") as string, "related")
-  if (!relatedResult.ok) return { error: relatedResult.error }
+  const relatedSlugs = parseList(fd.get("relatedSlugs") as string)
 
   await prisma.project.update({
     where: { slug },
@@ -195,7 +192,7 @@ export async function updateProjectNoRedirect(
       url,
       hero: heroResult.value ?? undefined,
       sections: sectionsResult.value ?? undefined,
-      related: relatedResult.value ?? undefined,
+      relatedSlugs,
     },
   })
   revalidateTag("projects", "max")

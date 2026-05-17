@@ -99,13 +99,14 @@ export default async function EditProjectPage({ params }: { params: Promise<{ sl
           />
         </div>
         <div style={formRowStyle}>
-          <label style={labelStyle}>Related (JSON, optional)</label>
-          <textarea
-            name="related"
-            rows={6}
-            defaultValue={proj.related ? JSON.stringify(proj.related, null, 2) : ""}
-            style={{ ...fieldStyle, resize: "vertical", fontFamily: "var(--font-mono)", fontSize: 12 }}
+          <label style={labelStyle}>Related projects (optional)</label>
+          <input
+            name="relatedSlugs"
+            type="text"
+            defaultValue={proj.relatedSlugs.join(", ")}
+            style={{ ...fieldStyle, fontFamily: "var(--font-mono)", fontSize: 13 }}
           />
+          <span style={hintStyle}>Comma-separated slugs, e.g. halftrack, cobalt-ui</span>
         </div>
       </AdminForm>
     </div>

@@ -112,31 +112,36 @@ model Problem {
 }
 
 model Project {
-  slug     String        @id
-  order    Int
-  name     String
-  italic   String
-  desc     String
-  cover    String
-  monogram String
-  year     String
-  duration String
-  status   ProjectStatus
-  stack    String[]
-  role     String?
-  client   String?
-  url      String?
-  hero     Json?
-  sections Json?
-  related  Json?
+  slug         String   @id
+  order        Int
+  name         String
+  italic       String
+  desc         String
+  cover        String
+  monogram     String
+  year         String
+  duration     String
+  status       String
+  stack        String[]
+  role         String?
+  client       String?
+  url          String?
+  hero         Json?
+  sections     Json?
+  relatedSlugs String[]
 
   @@map("projects")
 }
 
-enum ProjectStatus {
-  LIVE
-  RESCUED
-  STEALTH
+model AvailabilitySlot {
+  id        Int      @id @default(autoincrement())
+  order     Int
+  label     String
+  open      Boolean  @default(true)
+  startDate String
+  endDate   String
+
+  @@map("availability_slots")
 }
 
 model User {

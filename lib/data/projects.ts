@@ -2,7 +2,7 @@
 
 import { unstable_cache } from "next/cache"
 import { prisma } from "@/lib/prisma"
-import type { Prisma } from "@prisma/client"
+import type { Prisma } from "../../generated/prisma/client"
 
 /* ------------------------------------------------------------------ */
 /*  IMAGE TYPES                                                          */
@@ -165,7 +165,17 @@ function rowToProject(row: Prisma.ProjectGetPayload<object>): Project {
     url: row.url ?? undefined,
     hero: row.hero ? (row.hero as unknown as ProjectHero) : undefined,
     sections: row.sections ? (row.sections as unknown as ProjectSection[]) : undefined,
-    related: row.related ? (row.related as unknown as RelatedProject[]) : undefined,
+    related: undefined, // resolved separately in getProject
+  }
+}
+
+function rowToRelated(row: Prisma.ProjectGetPayload<object>): RelatedProject {
+  return {
+    slug: row.slug,
+    name: row.name,
+    italic: row.italic,
+    monogram: row.monogram,
+    cover: row.cover,
   }
 }
 
@@ -186,7 +196,19 @@ export async function getProject(slug: string): Promise<Project | undefined> {
   return unstable_cache(
     async (): Promise<Project | undefined> => {
       const row = await prisma.project.findUnique({ where: { slug } })
-      return row ? rowToProject(row) : undefined
+      if (!row) return undefined
+      const project = rowToProject(row)
+      if (row.relatedSlugs.length > 0) {
+        const relatedRows = await prisma.project.findMany({
+          where: { slug: { in: row.relatedSlugs } },
+        })
+        // preserve the order specified in relatedSlugs
+        const bySlug = Object.fromEntries(relatedRows.map((r) => [r.slug, r]))
+        project.related = row.relatedSlugs
+          .filter((s) => bySlug[s])
+          .map((s) => rowToRelated(bySlug[s]))
+      }
+      return project
     },
     ["project", slug],
     { revalidate: 3600, tags: ["projects"] },

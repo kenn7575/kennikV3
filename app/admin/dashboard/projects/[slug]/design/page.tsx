@@ -8,8 +8,14 @@ export default async function ProjectDesignPage({ params }: { params: Promise<{ 
   if (!session) redirect("/admin/login")
 
   const { slug } = await params
-  const proj = await prisma.project.findUnique({ where: { slug } })
+  const [proj, allRows] = await Promise.all([
+    prisma.project.findUnique({ where: { slug } }),
+    prisma.project.findMany({
+      select: { slug: true, name: true, italic: true, monogram: true, cover: true },
+      orderBy: { order: "asc" },
+    }),
+  ])
   if (!proj) notFound()
 
-  return <ProjectDesigner initialData={proj} />
+  return <ProjectDesigner initialData={proj} allProjects={allRows} />
 }

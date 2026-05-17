@@ -86,9 +86,9 @@ export default async function NewProjectPage() {
           <span style={hintStyle}>Array of section objects with a "kind" discriminator</span>
         </div>
         <div style={formRowStyle}>
-          <label style={labelStyle}>Related (JSON, optional)</label>
-          <textarea name="related" rows={6} style={{ ...fieldStyle, resize: "vertical", fontFamily: "var(--font-mono)", fontSize: 12 }} />
-          <span style={hintStyle}>{"[{ slug, name, italic, monogram, cover }]"}</span>
+          <label style={labelStyle}>Related projects (optional)</label>
+          <input name="relatedSlugs" type="text" style={{ ...fieldStyle, fontFamily: "var(--font-mono)", fontSize: 13 }} placeholder="halftrack, cobalt-ui" />
+          <span style={hintStyle}>Comma-separated slugs</span>
         </div>
       </AdminForm>
     </div>

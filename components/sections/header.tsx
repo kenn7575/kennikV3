@@ -26,7 +26,7 @@ export function Header() {
         <Logo />
 
         <nav className="hidden md:flex gap-7">
-          {["services", "work", "process", "pricing", "about", "contact"].map((id) => (
+          {["services", "process", "pricing", "about", "contact"].map((id) => (
             <button
               key={id}
               onClick={() => scrollTo(id)}
@@ -40,6 +40,12 @@ export function Header() {
               />
             </button>
           ))}
+          <Link
+            href="/projects"
+            className="relative text-sm capitalize text-[--fg2] hover:text-[--fg1] transition-colors duration-[240ms] py-1.5 px-0.5"
+          >
+            Work
+          </Link>
         </nav>
 
         <div className="flex items-center gap-3">
