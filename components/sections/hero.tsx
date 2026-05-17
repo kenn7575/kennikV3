@@ -6,7 +6,6 @@ import { Eyebrow } from "@/components/ui/eyebrow"
 import { PrismBackground } from "@/components/ui/prism-background"
 import { RevealText } from "@/components/ui/reveal-text"
 import { Scramble } from "@/components/ui/scramble"
-import { ScrollCue } from "@/components/ui/scroll-cue"
 import Prism from "../ui/prism"
 
 export function Hero() {
@@ -21,7 +20,7 @@ export function Hero() {
       className="relative overflow-hidden"
       style={{
         padding: "clamp(96px, 14vw, 200px) 0 clamp(80px, 12vw, 140px)",
-        minHeight: "min(96vh, 1100px)",
+        minHeight: "min(50vh, 1100px)",
         background: "var(--ink-950)",
       }}
     >
@@ -92,7 +91,7 @@ export function Hero() {
         <div className="mt-10 flex flex-wrap items-center gap-3.5">
           <Button
             onClick={() => scrollTo("contact")}
-            className="gap-2 rounded-full border-0 bg-[--cobalt-500] text-white hover:bg-[--cobalt-400]"
+            className="gap-2 rounded-full border-0"
             style={{
               padding: "13px 24px",
               fontSize: 14,
@@ -175,8 +174,6 @@ export function Hero() {
           ))}
         </div>
       </div>
-
-      <ScrollCue />
     </section>
   )
 }

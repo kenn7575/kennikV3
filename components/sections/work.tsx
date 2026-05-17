@@ -121,9 +121,8 @@ function ProjectCard({ project }: { project: Project }) {
 function StatsRibbon({ stats }: { stats: ProjectStat[] }) {
   return (
     <div
-      className="mt-14 grid"
+      className="mt-14 grid grid-cols-2 lg:grid-cols-4"
       style={{
-        gridTemplateColumns: "repeat(4, 1fr)",
         borderTop: "1px solid var(--cobalt-border)",
         borderBottom: "1px solid var(--cobalt-border)",
       }}
@@ -131,13 +130,17 @@ function StatsRibbon({ stats }: { stats: ProjectStat[] }) {
       {stats.map((s, i) => (
         <div
           key={s.label}
-          className="flex flex-col gap-1.5 px-5 py-7"
-          style={{
-            borderRight:
-              i < stats.length - 1
-                ? "1px solid var(--cobalt-border-lo)"
-                : "none",
-          }}
+          className={`flex flex-col gap-1.5 px-5 py-7 ${
+            i % 2 === 0 ? "border-r border-[--cobalt-border-lo]" : ""
+          } ${
+            i < stats.length - 2
+              ? "border-b border-[--cobalt-border-lo] lg:border-b-0"
+              : ""
+          } ${
+            i < stats.length - 1
+              ? "border-[--cobalt-border-lo] lg:border-r"
+              : "lg:border-r-0"
+          }`}
         >
           <span
             style={{
@@ -177,7 +180,7 @@ export function Work({ projects, stats }: WorkProps) {
     <section id="work" className="section">
       <div className="shell">
         <SectionHead
-          eyebrow="FEATURED PROJECTS · 2024 — 2026"
+          eyebrow="FEATURED PROJECTS · 2023 — 2026"
           title={
             <>
               Things I&apos;ve{" "}
@@ -186,7 +189,7 @@ export function Work({ projects, stats }: WorkProps) {
               </em>
             </>
           }
-          description="A small slice — each one shipped, each one hurt a little. Click through for the post-mortems and the actual numbers."
+          description="A preview of my recent work — each one shipped, each one hurt a little. But each one also added some value."
           row
         />
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">

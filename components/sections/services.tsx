@@ -272,7 +272,7 @@ export function Services() {
               </span>
             </>
           }
-          description="I keep the menu small on purpose. If your project doesn't fit cleanly into one of these, let's talk anyway — sometimes it's two of them stitched together."
+          description="As a datatechnician, I do many things, but mostly they all fall under these categories. If you have a project in mind that doesn’t fit here, let’s talk anyway."
           row
         />
         <div className="grid grid-cols-1 gap-4.5 md:grid-cols-2">

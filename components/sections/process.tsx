@@ -17,20 +17,18 @@ export async function Process() {
               </em>
             </>
           }
-          description="Same shape, every engagement. The fixed scope and weekly demos are non-negotiable — they're how I keep the work honest."
+          description="This is how we will work together. It’s a simple, process that keeps things moving forward while leaving room for iteration and feedback."
           row
         />
 
         <div style={{ borderTop: "1px solid var(--cobalt-border)" }}>
           {steps.map((step) => (
             <div
-              key={step.n}
-              className="group relative grid gap-8 transition-colors hover:bg-white/[0.012]"
+              key={step.index}
+              className="group relative transition-colors hover:bg-white/[0.012]"
               style={{
-                gridTemplateColumns: "120px 1fr 2fr",
                 padding: "36px 8px 32px",
                 borderBottom: "1px solid var(--cobalt-border-lo)",
-                alignItems: "baseline",
               }}
             >
               {/* Accent line on hover */}
@@ -42,7 +40,9 @@ export async function Process() {
                 }}
               />
 
+              {/* Step label — always full width on mobile */}
               <span
+                className="mb-3 block lg:hidden"
                 style={{
                   fontFamily: "var(--font-mono)",
                   fontSize: 12,
@@ -50,37 +50,96 @@ export async function Process() {
                   color: "var(--cobalt-300)",
                 }}
               >
-                STEP {step.n}
+                STEP {step.index}
               </span>
 
-              <h3
+              {/* On lg+: 3-col row. On mobile: title + body stacked */}
+              <div
+                className="grid gap-4 lg:gap-8"
                 style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "clamp(1.8rem, 3.5vw, 2.7rem)",
-                  lineHeight: 1,
-                  letterSpacing: "-0.025em",
-                  color: "var(--fg1)",
-                  fontWeight: 400,
-                  margin: 0,
+                  gridTemplateColumns: "1fr",
+                  alignItems: "baseline",
                 }}
               >
-                {step.t}{" "}
-                <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>
-                  — {step.italic}
-                </em>
-              </h3>
+                <div
+                  className="hidden lg:grid lg:gap-8"
+                  style={{
+                    gridTemplateColumns: "120px 1fr 2fr",
+                    alignItems: "baseline",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 12,
+                      letterSpacing: "0.18em",
+                      color: "var(--cobalt-300)",
+                    }}
+                  >
+                    STEP {step.index}
+                  </span>
 
-              <p
-                style={{
-                  fontSize: 16.5,
-                  lineHeight: 1.6,
-                  color: "var(--fg2)",
-                  maxWidth: "56ch",
-                  margin: 0,
-                }}
-              >
-                {step.body}
-              </p>
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(1.8rem, 3.5vw, 2.7rem)",
+                      lineHeight: 1,
+                      letterSpacing: "-0.025em",
+                      color: "var(--fg1)",
+                      fontWeight: 400,
+                      margin: 0,
+                    }}
+                  >
+                    {step.t}{" "}
+                    <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>
+                      — {step.italic}
+                    </em>
+                  </h3>
+
+                  <p
+                    style={{
+                      fontSize: 16.5,
+                      lineHeight: 1.6,
+                      color: "var(--fg2)",
+                      maxWidth: "56ch",
+                      margin: 0,
+                    }}
+                  >
+                    {step.body}
+                  </p>
+                </div>
+
+                {/* Mobile layout */}
+                <div className="lg:hidden">
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(1.8rem, 7vw, 2.4rem)",
+                      lineHeight: 1.05,
+                      letterSpacing: "-0.025em",
+                      color: "var(--fg1)",
+                      fontWeight: 400,
+                      margin: "0 0 10px",
+                    }}
+                  >
+                    {step.t}{" "}
+                    <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>
+                      — {step.italic}
+                    </em>
+                  </h3>
+
+                  <p
+                    style={{
+                      fontSize: 15.5,
+                      lineHeight: 1.6,
+                      color: "var(--fg2)",
+                      margin: 0,
+                    }}
+                  >
+                    {step.body}
+                  </p>
+                </div>
+              </div>
             </div>
           ))}
         </div>

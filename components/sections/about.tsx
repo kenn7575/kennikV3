@@ -21,10 +21,7 @@ export function About() {
           }
         />
 
-        <div
-          className="grid items-start gap-16"
-          style={{ gridTemplateColumns: "1fr 1fr" }}
-        >
+        <div className="grid items-start gap-10 md:gap-16 md:grid-cols-2">
           {/* Photo placeholder */}
           <div
             style={{

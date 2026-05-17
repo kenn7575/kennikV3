@@ -19,29 +19,28 @@ export async function Problems() {
               , we should talk.
             </>
           }
-          description="Most projects start with one of these sentences. None of them need a kickoff workshop — most need a 20-minute call and a repo invitation."
+          description="Most projects start with one sentence. These are some examples of things I can help you with."
           row
         />
 
         <div
           style={{
             borderTop: "1px solid var(--cobalt-border)",
-            borderBottom: "1px solid var(--cobalt-border)",
             marginTop: 24,
           }}
         >
           {problems.map((row, i) => (
             <div
               key={i}
-              className="grid cursor-default items-center gap-7 transition-colors duration-240 hover:bg-[rgba(2,59,230,0.04)]"
+              className="grid cursor-default grid-cols-3 items-center gap-2 transition-colors duration-240 hover:bg-[rgba(2,59,230,0.04)] sm:grid-cols-4 sm:gap-7"
               style={{
-                gridTemplateColumns: "56px 1fr 24px 1fr",
                 padding: "22px clamp(8px, 2vw, 24px)",
                 borderTop:
                   i === 0 ? "none" : "1px solid var(--cobalt-border-lo)",
               }}
             >
               <span
+                className="hidden sm:block"
                 style={{
                   fontFamily: "var(--font-mono)",
                   fontSize: 12,
@@ -71,7 +70,7 @@ export async function Problems() {
                 style={{
                   fontFamily: "var(--font-display)",
                   fontStyle: "italic",
-                  fontSize: "clamp(1.1rem, 1.8vw, 1.55rem)",
+                  fontSize: "clamp(1.3rem, 1.8vw, 1.55rem)",
                   lineHeight: 1.2,
                   letterSpacing: "-0.02em",
                   color: "var(--fg1)",

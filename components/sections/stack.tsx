@@ -25,10 +25,7 @@ export async function Stack() {
           row
         />
 
-        <div
-          className="grid"
-          style={{ gridTemplateColumns: "repeat(3, 1fr)", gap: 18 }}
-        >
+        <div className="grid gap-4.5 grid-cols-2 lg:grid-cols-3">
           {groups.map((g) => (
             <div
               key={g.group}

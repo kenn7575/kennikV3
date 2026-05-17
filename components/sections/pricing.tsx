@@ -163,10 +163,7 @@ export function Pricing({ packages }: PricingProps) {
           row
         />
 
-        <div
-          className="grid items-stretch gap-[22px]"
-          style={{ gridTemplateColumns: "repeat(3, 1fr)" }}
-        >
+        <div className="grid items-stretch gap-5.5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {packages.map((pkg) => (
             <PackageCard key={pkg.id} pkg={pkg} />
           ))}

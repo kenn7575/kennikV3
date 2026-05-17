@@ -85,7 +85,7 @@ export function Contact() {
           }
         />
 
-        <div className="grid gap-16" style={{ gridTemplateColumns: "1fr 1fr" }}>
+        <div className="grid gap-10 md:gap-16 md:grid-cols-2">
           {sent ? (
             <div
               className="flex flex-col gap-3"
@@ -131,7 +131,7 @@ export function Contact() {
             </div>
           ) : (
             <form onSubmit={submit} className="flex flex-col gap-5">
-              <div className="grid grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div>
                   <label style={labelStyle}>NAME</label>
                   <input

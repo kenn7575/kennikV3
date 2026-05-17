@@ -4,6 +4,7 @@ import Link from "next/link"
 import { ArrowLeft, ArrowUpRight } from "lucide-react"
 import type { Project } from "@/lib/data/projects"
 import { RevealText } from "../ui/reveal-text"
+import Aurora from "@/components/Aurora"
 
 /* ------------------------------------------------------------------ */
 /*  Static bench data — "what's on the bench right now"                 */
@@ -14,16 +15,19 @@ import { RevealText } from "../ui/reveal-text"
 /* ------------------------------------------------------------------ */
 
 function PIHero({ projects }: { projects: Project[] }) {
-  const yearNums = projects.map((p) => parseInt(p.year)).filter(Boolean)
-  const yearMin = yearNums.length ? Math.min(...yearNums) : 2022
-  const yearMax = yearNums.length ? Math.max(...yearNums) : 2026
-
   return (
     <section className="relative isolate overflow-hidden pt-[clamp(80px,12vw,160px)] pb-[clamp(48px,6vw,72px)]">
-      {/* Mesh */}
-      <div className="absolute inset-[-20%] z-0 [background:radial-gradient(at_20%_30%,rgba(2,59,230,0.28),transparent_50%),radial-gradient(at_80%_10%,rgba(178,102,255,0.16),transparent_55%)]" />
+      {/* Aurora background */}
+      <div className="absolute inset-0 z-0">
+        <Aurora
+          colorStops={["#023BE6", "#7c3aed", "#023BE6"]}
+          amplitude={0.8}
+          blend={0.6}
+          speed={0.5}
+        />
+      </div>
       {/* Grain */}
-      <div className="absolute inset-0 z-0 [background-image:var(--grain-url)] opacity-40 mix-blend-overlay" />
+      <div className="absolute inset-0 z-0 [background-image:var(--grain-url)] opacity-15 mix-blend-overlay" />
 
       <div className="shell relative z-1">
         {/* Breadcrumbs */}
@@ -65,10 +69,9 @@ function PIHero({ projects }: { projects: Project[] }) {
         <div className="mt-10 flex flex-wrap items-end justify-between gap-7 pt-7">
           {/* Blurb */}
           <p className="m-0 max-w-[44ch] text-[clamp(1rem,1.3vw,1.15rem)] leading-normal text-pretty text-[--fg2]">
-            A complete, honest record. The work I&apos;d want a stranger to see
-            — plus some open-source side-projects tagged{" "}
-            <em className="text-[--ember] italic">STEALTH</em>, mixed in for
-            context.
+            Here are some of the projects I&apos;ve picked to share — a mix of
+            projects from clients, school, personal side projects and
+            experiments.
           </p>
         </div>
       </div>

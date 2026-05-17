@@ -20,9 +20,10 @@ export function Availability({ slots }: { slots: Slot[] }) {
   const openSlots = slots.filter((s) => s.open)
   const count = openSlots.length
 
-  const periodLabel = openSlots.length > 0
-    ? openSlots.map((s) => `${s.startDate} — ${s.endDate}`).join(", ")
-    : null
+  const periodLabel =
+    openSlots.length > 0
+      ? openSlots.map((s) => `${s.startDate} — ${s.endDate}`).join(", ")
+      : null
 
   return (
     <section
@@ -45,7 +46,7 @@ export function Availability({ slots }: { slots: Slot[] }) {
       />
 
       <div className="shell relative z-1">
-        <div className="flex justify-between items-center gap-8 flex-wrap">
+        <div className="flex flex-wrap items-center justify-between gap-8">
           <p
             style={{
               fontFamily: "var(--font-display)",
@@ -69,18 +70,20 @@ export function Availability({ slots }: { slots: Slot[] }) {
               <>
                 {count === 1 ? "One slot open" : `${count} slots open`}{" "}
                 {periodLabel && (
-                  <em style={{ fontStyle: "italic", color: "var(--cobalt-300)" }}>
+                  <em
+                    style={{ fontStyle: "italic", color: "var(--cobalt-300)" }}
+                  >
                     {periodLabel}.
                   </em>
                 )}{" "}
-                One of them has your name on it.
+                Claim a spot before they fill up.
               </>
             )}
           </p>
 
-          <div className="flex items-center gap-5 flex-wrap">
+          <div className="flex flex-wrap items-center gap-5">
             <div
-              className="flex gap-7 flex-wrap"
+              className="flex flex-wrap gap-7"
               style={{
                 fontFamily: "var(--font-mono)",
                 fontSize: 12,
@@ -90,21 +93,20 @@ export function Availability({ slots }: { slots: Slot[] }) {
               }}
             >
               <span>
-                <span style={{ color: "var(--fg1)", marginRight: 8 }}>8–12 wks</span>
-                ENGAGEMENT
-              </span>
-              <span>
-                <span style={{ color: "var(--fg1)", marginRight: 8 }}>&lt; 24h</span>
+                <span style={{ color: "var(--fg1)", marginRight: 8 }}>
+                  &lt; 24h
+                </span>
                 REPLY
-              </span>
-              <span>
-                <span style={{ color: "var(--fg1)" }}>EU + REMOTE</span>
               </span>
             </div>
             <Button
               onClick={() => scrollTo("contact")}
-              className="rounded-full gap-2 bg-[--cobalt-500] hover:bg-[--cobalt-400] text-white border-0"
-              style={{ padding: "13px 24px", fontSize: 14, boxShadow: "var(--glow-cobalt-soft)" }}
+              className="gap-2 rounded-full"
+              style={{
+                padding: "13px 24px",
+                fontSize: 14,
+                boxShadow: "var(--glow-cobalt-soft)",
+              }}
             >
               {count === 0 ? "Join waitlist" : "Claim a slot"}
               <ArrowUpRight size={16} />
