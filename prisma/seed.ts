@@ -11,44 +11,39 @@ async function main() {
   await prisma.faq.createMany({
     data: [
       {
-        order: 0,
-        q: "Are you available right now?",
-        a: "Two slots open in Q3 2026 — Q1 2027. If your project is later than that, get on the list and I'll reply when a slot opens. If it's urgent, ask anyway — I sometimes have a week to spare between long engagements.",
-      },
-      {
         order: 1,
         q: "Do you work alone or with a team?",
-        a: "Alone, by default. For builds longer than 10 weeks I'll bring in one trusted designer or one frontend specialist if the scope needs it — always announced up front, never subcontracted invisibly.",
+        a: "Alone, by default. ",
       },
       {
         order: 2,
         q: "What's the fastest you can start?",
-        a: "If the brief is clear, I can start the same week. If we need to scope first, count on a week of back-and-forth. I never start without a one-page signed brief.",
+        a: "If i don't have anything i progress, I can start the same week. Reach out to me with your requests and i will write back to you within a day or so.",
       },
       {
         order: 3,
         q: "Do you do design?",
-        a: "I design competently, not artfully. For greenfield products I usually bring in a designer for the first two weeks. For dashboards and internal tools I'm fine on my own.",
+        a: "I do make designs and mockups, though note that i am not a profesional designer. Still i can create beautiful and user friendly UI for most projects.",
       },
       {
         order: 4,
         q: "Will you sign an NDA?",
-        a: "Yes. I have a one-page mutual NDA I can send. I won't sign 14-page corporate ones without striking a few clauses — happy to walk through which.",
+        a: "Yes. I will sign an NDA if the project requires it, but I prefer not to. ",
       },
       {
         order: 5,
         q: "Where are you based?",
-        a: "Copenhagen, Denmark. I work GMT+1 hours, overlap 4 hours with US East, full overlap with EU. I travel to a client kickoff once per engagement when it makes sense.",
+        a: "Svendborg, Denmark. ",
       },
       {
         order: 6,
         q: "What if you underestimate?",
-        a: "Fixed-scope means I eat the overrun. The flip side: I'm conservative on the brief. If we hit a real change in scope, we re-paper it together — but bugs in my plan are on me.",
+        a: "I start by creating a detailed proposal with a clear scope and timeline. That means i eat any overages myself. If the scope changes mid-project, we can discuss how to handle that. You know what you pay for upfront.",
       },
       {
         order: 7,
         q: "Do you take equity?",
-        a: "Not as full payment. I'll take up to 25% of a fee as equity in a post-revenue company I believe in, but the rest is cash. If you're pre-revenue, cash only.",
+        a: "No, I usually don't take equity.",
       },
     ],
   })
@@ -56,59 +51,48 @@ async function main() {
   // ── PACKAGES ─────────────────────────────────────────────────────────
   const packages = [
     {
-      id: "rescue",
+      id: "Consultant",
       order: 0,
-      name: "Rescue",
-      italic: "a fire to put out.",
-      price: "from €4.5k",
+      name: "Consultant help",
+      italic: "",
+      price: "350 kr./Hour",
       duration: "1–2 weeks",
       blurb:
-        "Something is on fire. I diagnose, fix, document. Best for: a regression, a missed deadline, a contractor who left.",
-      includes: [
-        "Audit + root-cause",
-        "Hands-on fixes",
-        "Runbook + handover",
-        "Slack support · 1 week",
-      ],
-      cta: "Start a rescue",
+        "Sometimes you just need to talk to someone with the right experience. Got a technical decision to make or need a second opinion? I'm happy to help.",
+      includes: ["Meetings", "Research", "Guidence"],
+      cta: "Book a meeting",
       featured: false,
     },
     {
-      id: "build",
+      id: "Problem solving",
       order: 1,
-      name: "Build",
-      italic: "the whole product.",
-      price: "from €18k",
+      name: "Problem solving",
+      italic: "",
+      price: "400 kr./Hour",
       duration: "6–12 weeks",
       blurb:
-        "End-to-end. Architecture, code, infra, observability. You get a working product on Fly or Vercel and the keys.",
-      includes: [
-        "Discovery + scope",
-        "Production build",
-        "CI/CD + monitoring",
-        "Friday demos",
-        "30-day warranty",
-        "Full docs + ADRs",
-      ],
-      cta: "Plan a build",
+        "Got a technical challenge without a clear path forward? I offer end-to-end problem solving and solution engineering — from diagnosing the root cause to designing and building something that actually works. You bring the problem; I bring the engineering.",
+      includes: ["Meetings", "Planning", "Coding", "Setup infrastructure"],
+      cta: "Tell me about your problem",
       featured: true,
     },
     {
-      id: "retainer",
+      id: "Support",
       order: 2,
-      name: "Retainer",
-      italic: "on speed-dial.",
-      price: "€6k / month",
+      name: "Support and monitoring",
+      italic: "",
+      price: "400 kr./Month",
       duration: "rolling 90-day",
       blurb:
-        "A senior pair of eyes for your team. Weekly review, on-call for incidents, hands-on for two days per month.",
+        "Includes security upates of source code, packages and infrastructure, basic contumer support and uptime, cost and performance monitoring.",
       includes: [
-        "Weekly architecture review",
-        "PR review · unlimited",
-        "2 hands-on days / month",
-        "Incident on-call · business hrs",
+        "Uptime monitoring",
+        "Security patches",
+        "Cost monitoring",
+        "Performance monitoring",
+        "Basic support",
       ],
-      cta: "Book a retainer",
+      cta: "Sign up",
       featured: false,
     },
   ]
@@ -127,34 +111,18 @@ async function main() {
       {
         order: 0,
         quote:
-          "Shipped in 6 weeks what our team had been grinding on for 6 months. Diagnosed the data layer in the first call.",
-        who: "Cofounder",
-        co: "Mailroom",
-        initials: "AM",
+          "Vi havde virkelig brug for en løsning, og det er blevet så meget nemmere for os, efter vi fik det.",
+        who: "Owner",
+        co: "Svendborgsund Bryghus",
+        initials: "BE",
       },
       {
         order: 1,
         quote:
-          "Took our checkout from 3.4s to 740ms in two weeks. Wrote a 14-page handover. We've not had to think about it since.",
-        who: "Head of Eng",
-        co: "Field & Co.",
-        initials: "JR",
-      },
-      {
-        order: 2,
-        quote:
-          "Rare to find someone who codes well and writes well. The post-mortem he sent us is in our onboarding doc now.",
-        who: "CTO",
-        co: "Halftrack",
-        initials: "EB",
-      },
-      {
-        order: 3,
-        quote:
-          "I've worked with 11 contractors. He's the only one whose code I haven't had to rewrite.",
-        who: "Founder",
-        co: "Atlas (stealth)",
-        initials: "SK",
+          "Det er verdensklasse! Det ser virkelig godt ud og jeg er sikker på, at det vil tiltrække flere kunder.",
+        who: "Owner",
+        co: "Hyper Svendborg",
+        initials: "MM",
       },
     ],
   })
@@ -336,7 +304,7 @@ async function main() {
       {
         order: 3,
         group: "Infra",
-        items: ["Vercel", "AWS", "Azure", "Firebase", "Docker"],
+        items: ["Vercel", "AWS", "Azure", "Firebase", "Docker", "Google Cloud"],
       },
       {
         order: 4,
@@ -375,6 +343,7 @@ async function main() {
       "Azure",
       "Firebase",
       "Docker",
+      "Google Cloud",
       "Anthropic",
       "OpenAI",
       "Vercel AI SDK",
@@ -384,7 +353,6 @@ async function main() {
       "CI/CD",
       "GitHub Actions",
       "TailwindCSS",
-      "Remix",
     ].map((name, i) => ({ order: i, name })),
   })
 
