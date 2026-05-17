@@ -5,7 +5,8 @@
       "Bash(Select-Object Name, Mode)",
       "PowerShell($binFile = \"C:\\\\Users\\\\kko\\\\.claude\\\\projects\\\\c--src-repos-kennik\\\\ccddf20c-b22d-497b-9bcc-dee64f75f6d2\\\\tool-results\\\\webfetch-1778243980075-9baox0.bin\"; $outFile = \"C:\\\\Users\\\\kko\\\\.claude\\\\projects\\\\c--src-repos-kennik\\\\design_output.html\"; $inputStream = [System.IO.File]::OpenRead\\($binFile\\); $outputStream = [System.IO.File]::Create\\($outFile\\); $gzip = New-Object System.IO.Compression.GZipStream\\($inputStream, [System.IO.Compression.CompressionMode]::Decompress\\); $gzip.CopyTo\\($outputStream\\); $gzip.Close\\(\\); $outputStream.Close\\(\\); $inputStream.Close\\(\\); Write-Host \"Done, size: $\\(\\(Get-Item $outFile\\).Length\\) bytes\")",
       "Bash(npm run *)",
-      "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\kenn7\\\\Desktop\\\\kennikV3\\\\app\\\\admin\\\\dashboard\\\\_components\")"
+      "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\Users\\\\kenn7\\\\Desktop\\\\kennikV3\\\\app\\\\admin\\\\dashboard\\\\_components\")",
+      "PowerShell($path = \"C:\\\\Users\\\\kenn7\\\\Desktop\\\\kennikV3\\\\app\\\\work\\\\[slug]\"; if \\(Test-Path $path\\) { Get-ChildItem $path -Force -Recurse } else { \"Path does not exist: $path\" })"
     ],
     "additionalDirectories": [
       "c:\\Users\\kenn7\\Desktop\\kennikV3\\app\\api\\auth"

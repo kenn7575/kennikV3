@@ -56,8 +56,14 @@ export default async function ProjectsPage() {
                   {proj.status}
                 </span>
               </td>
-              <td style={{ ...tdStyle, width: 100 }}>
+              <td style={{ ...tdStyle, width: 160 }}>
                 <div style={{ display: "flex", gap: 8 }}>
+                  <Link
+                    href={`/admin/dashboard/projects/${proj.slug}/design`}
+                    style={{ fontFamily: "var(--font-sans)", fontSize: 13, color: "var(--cobalt-300, #5A82FB)", textDecoration: "none", fontWeight: 500 }}
+                  >
+                    Design
+                  </Link>
                   <Link
                     href={`/admin/dashboard/projects/${proj.slug}`}
                     style={{ fontFamily: "var(--font-sans)", fontSize: 13, color: "var(--cobalt-400, var(--cobalt-500))", textDecoration: "none" }}

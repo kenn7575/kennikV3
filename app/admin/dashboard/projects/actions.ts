@@ -147,6 +147,61 @@ export async function updateProject(
   redirect("/admin/dashboard/projects")
 }
 
+export async function updateProjectNoRedirect(
+  slug: string,
+  state: State,
+  fd: FormData
+): Promise<State> {
+  const order = parseInt(fd.get("order") as string)
+  const name = (fd.get("name") as string).trim()
+  const italic = (fd.get("italic") as string).trim()
+  const desc = (fd.get("desc") as string).trim()
+  const cover = (fd.get("cover") as string).trim()
+  const monogram = (fd.get("monogram") as string).trim()
+  const year = (fd.get("year") as string).trim()
+  const duration = (fd.get("duration") as string).trim()
+  const status = (fd.get("status") as string).trim() as "LIVE" | "RESCUED" | "STEALTH"
+  const stack = parseList(fd.get("stack") as string)
+  const role = (fd.get("role") as string).trim() || null
+  const client = (fd.get("client") as string).trim() || null
+  const url = (fd.get("url") as string).trim() || null
+
+  if (!name || !desc) return { error: "Name and description are required." }
+  if (!["LIVE", "RESCUED", "STEALTH"].includes(status))
+    return { error: "Invalid status." }
+
+  const heroResult = parseJson(fd.get("hero") as string, "hero")
+  if (!heroResult.ok) return { error: heroResult.error }
+  const sectionsResult = parseJson(fd.get("sections") as string, "sections")
+  if (!sectionsResult.ok) return { error: sectionsResult.error }
+  const relatedResult = parseJson(fd.get("related") as string, "related")
+  if (!relatedResult.ok) return { error: relatedResult.error }
+
+  await prisma.project.update({
+    where: { slug },
+    data: {
+      order,
+      name,
+      italic,
+      desc,
+      cover,
+      monogram,
+      year,
+      duration,
+      status,
+      stack,
+      role,
+      client,
+      url,
+      hero: heroResult.value ?? undefined,
+      sections: sectionsResult.value ?? undefined,
+      related: relatedResult.value ?? undefined,
+    },
+  })
+  revalidateTag("projects", "max")
+  return null
+}
+
 export async function deleteProject(slug: string): Promise<void> {
   await prisma.project.delete({ where: { slug } })
   revalidateTag("projects", "max")
