@@ -264,12 +264,9 @@ export function Services() {
           title={
             <>
               You have the ideas{" "}
-              <span
-                style={{ fontStyle: "italic" }}
-                className="text-primary text-shadow-white"
-              >
+              <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>
                 I have the skills.
-              </span>
+              </em>
             </>
           }
           description="As a datatechnician, I do many things, but mostly they all fall under these categories. If you have a project in mind that doesn’t fit here, let’s talk anyway."

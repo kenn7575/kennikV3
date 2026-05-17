@@ -11,7 +11,13 @@
       "Read(//c/Users/kenn7/.claude/projects/c--Users-kenn7-Desktop-kennikV3/design_bundle/kennik-dk-ui/**)",
       "Bash(find \"/mnt/c/Users/kenn7/.claude/projects/c--Users-kenn7-Desktop-kennikV3/design_bundle\" -type f 2>/dev/null | head -50)",
       "Read(//mnt/c/Users/kenn7/.claude/projects/c--Users-kenn7-Desktop-kennikV3/**)",
-      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\kenn7\\\\Desktop\\\\kennikV3\\\\app\\\\admin\\\\dashboard\\\\\" -Recurse -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName)"
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\kenn7\\\\Desktop\\\\kennikV3\\\\app\\\\admin\\\\dashboard\\\\\" -Recurse -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\kenn7\\\\Desktop\\\\kennikV3\\\\prisma\" -ErrorAction SilentlyContinue)",
+      "Bash(cd \"C:\\\\Users\\\\kenn7\\\\Desktop\\\\kennikV3\" && git diff --no-index /dev/null components/sections/services.tsx 2>&1 | grep -A5 -B5 \"I have the skills\" | head -30)",
+      "Read(//dev/**)",
+      "Bash(grep -E \"^\\\\.env$\")",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\kenn7\\\\Desktop\\\\kennikV3\" -Force)",
+      "Bash(Select-Object Name, PSIsContainer)"
     ],
     "additionalDirectories": [
       "c:\\Users\\kenn7\\Desktop\\kennikV3\\app\\api\\auth"
