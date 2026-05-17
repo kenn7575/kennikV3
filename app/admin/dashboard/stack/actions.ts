@@ -3,6 +3,7 @@
 import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
+import { requireAuth } from "@/lib/session"
 
 type State = { error: string } | null
 
@@ -19,6 +20,7 @@ export async function createStackGroup(
   state: State,
   fd: FormData
 ): Promise<State> {
+  await requireAuth()
   const order = parseInt(fd.get("order") as string)
   const group = (fd.get("group") as string).trim()
   const items = parseList(fd.get("items") as string)
@@ -34,6 +36,7 @@ export async function updateStackGroup(
   state: State,
   fd: FormData
 ): Promise<State> {
+  await requireAuth()
   const order = parseInt(fd.get("order") as string)
   const group = (fd.get("group") as string).trim()
   const items = parseList(fd.get("items") as string)
@@ -48,6 +51,7 @@ export async function updateStackGroup(
 }
 
 export async function deleteStackGroup(id: number): Promise<void> {
+  await requireAuth()
   await prisma.stackGroup.delete({ where: { id } })
   revalidateTag("stack", "max")
 }
@@ -58,6 +62,7 @@ export async function createMarqueeItem(
   state: State,
   fd: FormData
 ): Promise<State> {
+  await requireAuth()
   const order = parseInt(fd.get("order") as string)
   const name = (fd.get("name") as string).trim()
   if (!name) return { error: "Name is required." }
@@ -71,6 +76,7 @@ export async function updateMarqueeItem(
   state: State,
   fd: FormData
 ): Promise<State> {
+  await requireAuth()
   const order = parseInt(fd.get("order") as string)
   const name = (fd.get("name") as string).trim()
   if (!name) return { error: "Name is required." }
@@ -80,6 +86,7 @@ export async function updateMarqueeItem(
 }
 
 export async function deleteMarqueeItem(id: number): Promise<void> {
+  await requireAuth()
   await prisma.stackMarqueeItem.delete({ where: { id } })
   revalidateTag("stack", "max")
 }

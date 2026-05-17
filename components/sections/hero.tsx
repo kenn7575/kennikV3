@@ -1,6 +1,7 @@
 "use client"
 
 import { ArrowUpRight, ArrowRight } from "lucide-react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { PrismBackground } from "@/components/ui/prism-background"
@@ -9,6 +10,16 @@ import { Scramble } from "@/components/ui/scramble"
 import Prism from "../ui/prism"
 
 export function Hero() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)")
+    setIsMobile(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    mq.addEventListener("change", handler)
+    return () => mq.removeEventListener("change", handler)
+  }, [])
+
   const scrollTo = (id: string) => {
     const el = document.getElementById(id)
     if (el) window.scrollTo({ top: el.offsetTop - 60, behavior: "smooth" })
@@ -29,8 +40,8 @@ export function Hero() {
           <Prism
             animationType="3drotate"
             timeScale={0.3}
-            height={3.5}
-            baseWidth={5}
+            height={isMobile ? 1 : 3.5}
+            baseWidth={isMobile ? 2 : 5}
             scale={3.6}
             hueShift={0.0584}
             colorFrequency={0.45}
@@ -45,6 +56,15 @@ export function Hero() {
       </div>
       <div className="hero-grain" />
       <div className="hero-fade-bottom" />
+
+      <div
+        className="absolute bottom-0 left-0 z-20 w-full"
+        style={{
+          height: "70%",
+          background:
+            "linear-gradient(to top, var(--ink-950) 30%, transparent)",
+        }}
+      />
 
       <div className="shell relative z-[21]">
         <div className="mb-7">

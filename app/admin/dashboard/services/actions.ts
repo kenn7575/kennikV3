@@ -3,6 +3,7 @@
 import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
+import { requireAuth } from "@/lib/session"
 
 type State = { error: string } | null
 
@@ -17,6 +18,7 @@ export async function createService(
   state: State,
   fd: FormData
 ): Promise<State> {
+  await requireAuth()
   const id = (fd.get("id") as string).trim()
   const order = parseInt(fd.get("order") as string)
   const title = (fd.get("title") as string).trim()
@@ -54,6 +56,7 @@ export async function updateService(
   state: State,
   fd: FormData
 ): Promise<State> {
+  await requireAuth()
   const order = parseInt(fd.get("order") as string)
   const title = (fd.get("title") as string).trim()
   const italic = (fd.get("italic") as string).trim()
@@ -81,6 +84,7 @@ export async function updateService(
 }
 
 export async function deleteService(id: string): Promise<void> {
+  await requireAuth()
   await prisma.service.delete({ where: { id } })
   revalidateTag("services", "max")
 }

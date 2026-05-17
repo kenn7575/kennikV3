@@ -3,6 +3,7 @@
 import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
+import { requireAuth } from "@/lib/session"
 
 type State = { error: string } | null
 
@@ -10,6 +11,7 @@ export async function createProblem(
   state: State,
   fd: FormData
 ): Promise<State> {
+  await requireAuth()
   const order = parseInt(fd.get("order") as string)
   const p = (fd.get("p") as string).trim()
   const s = (fd.get("s") as string).trim()
@@ -24,6 +26,7 @@ export async function updateProblem(
   state: State,
   fd: FormData
 ): Promise<State> {
+  await requireAuth()
   const order = parseInt(fd.get("order") as string)
   const p = (fd.get("p") as string).trim()
   const s = (fd.get("s") as string).trim()
@@ -34,6 +37,7 @@ export async function updateProblem(
 }
 
 export async function deleteProblem(id: number): Promise<void> {
+  await requireAuth()
   await prisma.problem.delete({ where: { id } })
   revalidateTag("problems", "max")
 }

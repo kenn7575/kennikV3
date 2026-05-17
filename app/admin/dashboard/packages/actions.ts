@@ -3,6 +3,7 @@
 import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
+import { requireAuth } from "@/lib/session"
 
 type State = { error: string } | null
 
@@ -17,6 +18,7 @@ export async function createPackage(
   state: State,
   fd: FormData
 ): Promise<State> {
+  await requireAuth()
   const id = (fd.get("id") as string).trim()
   const order = parseInt(fd.get("order") as string)
   const name = (fd.get("name") as string).trim()
@@ -56,6 +58,7 @@ export async function updatePackage(
   state: State,
   fd: FormData
 ): Promise<State> {
+  await requireAuth()
   const order = parseInt(fd.get("order") as string)
   const name = (fd.get("name") as string).trim()
   const italic = (fd.get("italic") as string).trim()
@@ -85,6 +88,7 @@ export async function updatePackage(
 }
 
 export async function deletePackage(id: string): Promise<void> {
+  await requireAuth()
   await prisma.package.delete({ where: { id } })
   revalidateTag("packages", "max")
 }

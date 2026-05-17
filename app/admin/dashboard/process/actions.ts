@@ -3,6 +3,7 @@
 import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
+import { requireAuth } from "@/lib/session"
 
 type State = { error: string } | null
 
@@ -10,6 +11,7 @@ export async function createProcessStep(
   state: State,
   fd: FormData
 ): Promise<State> {
+  await requireAuth()
   const order = parseInt(fd.get("order") as string)
   const n = (fd.get("n") as string).trim()
   const t = (fd.get("t") as string).trim()
@@ -26,6 +28,7 @@ export async function updateProcessStep(
   state: State,
   fd: FormData
 ): Promise<State> {
+  await requireAuth()
   const order = parseInt(fd.get("order") as string)
   const n = (fd.get("n") as string).trim()
   const t = (fd.get("t") as string).trim()
@@ -41,6 +44,7 @@ export async function updateProcessStep(
 }
 
 export async function deleteProcessStep(id: number): Promise<void> {
+  await requireAuth()
   await prisma.processStep.delete({ where: { id } })
   revalidateTag("process", "max")
 }

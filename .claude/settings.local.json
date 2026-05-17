@@ -17,7 +17,9 @@
       "Read(//dev/**)",
       "Bash(grep -E \"^\\\\.env$\")",
       "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\kenn7\\\\Desktop\\\\kennikV3\" -Force)",
-      "Bash(Select-Object Name, PSIsContainer)"
+      "Bash(Select-Object Name, PSIsContainer)",
+      "Bash(xargs grep -l \"signUp\\\\|sign_up\")",
+      "Bash(xargs grep -l \"hooks\")"
     ],
     "additionalDirectories": [
       "c:\\Users\\kenn7\\Desktop\\kennikV3\\app\\api\\auth"

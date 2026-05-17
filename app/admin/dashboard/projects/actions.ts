@@ -3,6 +3,7 @@
 import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
+import { requireAuth } from "@/lib/session"
 
 type State = { error: string } | null
 
@@ -30,6 +31,7 @@ export async function createProject(
   state: State,
   fd: FormData
 ): Promise<State> {
+  await requireAuth()
   const slug = (fd.get("slug") as string).trim()
   const order = parseInt(fd.get("order") as string)
   const name = (fd.get("name") as string).trim()
@@ -93,6 +95,7 @@ export async function updateProject(
   state: State,
   fd: FormData
 ): Promise<State> {
+  await requireAuth()
   const order = parseInt(fd.get("order") as string)
   const name = (fd.get("name") as string).trim()
   const italic = (fd.get("italic") as string).trim()
@@ -150,6 +153,7 @@ export async function updateProjectNoRedirect(
   state: State,
   fd: FormData
 ): Promise<State> {
+  await requireAuth()
   const order = parseInt(fd.get("order") as string)
   const name = (fd.get("name") as string).trim()
   const italic = (fd.get("italic") as string).trim()
@@ -200,6 +204,7 @@ export async function updateProjectNoRedirect(
 }
 
 export async function deleteProject(slug: string): Promise<void> {
+  await requireAuth()
   await prisma.project.delete({ where: { slug } })
   revalidateTag("projects", "max")
 }

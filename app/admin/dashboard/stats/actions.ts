@@ -3,10 +3,12 @@
 import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
+import { requireAuth } from "@/lib/session"
 
 type State = { error: string } | null
 
 export async function createStat(state: State, fd: FormData): Promise<State> {
+  await requireAuth()
   const order = parseInt(fd.get("order") as string)
   const v = (fd.get("v") as string).trim()
   const label = (fd.get("label") as string).trim()
@@ -21,6 +23,7 @@ export async function updateStat(
   state: State,
   fd: FormData
 ): Promise<State> {
+  await requireAuth()
   const order = parseInt(fd.get("order") as string)
   const v = (fd.get("v") as string).trim()
   const label = (fd.get("label") as string).trim()
@@ -31,6 +34,7 @@ export async function updateStat(
 }
 
 export async function deleteStat(id: number): Promise<void> {
+  await requireAuth()
   await prisma.projectStat.delete({ where: { id } })
   revalidateTag("project-stats", "max")
 }

@@ -9,7 +9,7 @@ export async function Problems() {
     <section id="problems" className="section">
       <div className="shell">
         <SectionHead
-          eyebrow="PROBLEMS I SOLVE — A SHORTLIST"
+          eyebrow="PROBLEMS I SOLVE"
           title={
             <>
               If something here{" "}

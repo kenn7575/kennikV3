@@ -3,6 +3,7 @@
 import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
+import { requireAuth } from "@/lib/session"
 
 type State = { error: string } | null
 
@@ -10,6 +11,7 @@ export async function createTestimonial(
   state: State,
   fd: FormData
 ): Promise<State> {
+  await requireAuth()
   const order = parseInt(fd.get("order") as string)
   const quote = (fd.get("quote") as string).trim()
   const who = (fd.get("who") as string).trim()
@@ -27,6 +29,7 @@ export async function updateTestimonial(
   state: State,
   fd: FormData
 ): Promise<State> {
+  await requireAuth()
   const order = parseInt(fd.get("order") as string)
   const quote = (fd.get("quote") as string).trim()
   const who = (fd.get("who") as string).trim()
@@ -43,6 +46,7 @@ export async function updateTestimonial(
 }
 
 export async function deleteTestimonial(id: number): Promise<void> {
+  await requireAuth()
   await prisma.testimonial.delete({ where: { id } })
   revalidateTag("testimonials", "max")
 }
