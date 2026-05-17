@@ -1,4 +1,4 @@
-import Link from "next/link"
+﻿import Link from "next/link"
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { Tag } from "@/components/ui/tag"
@@ -105,12 +105,12 @@ function CoverImg({
   return (
     <div className={className ?? `relative ${aspectClass} rounded-[18px] border border-(--cobalt-border) overflow-hidden transition-[transform,border-color] duration-240 hover:border-(--cobalt-border-hi) hover:-translate-y-0.5`}>
       <div className="absolute inset-0" style={{ background: image.cover }} />
-      <div className="absolute inset-0 bg-[image:var(--grain-url)] mix-blend-overlay opacity-35" />
+      <div className="absolute inset-0 bg-(image:--grain-url) mix-blend-overlay opacity-35" />
       <div className={`absolute inset-0 flex items-center justify-center font-display italic ${monoSize} text-white/92 tracking-[-0.04em]`}>
         {image.mono}
       </div>
       {image.label && (
-        <span className="absolute left-[14px] bottom-3 font-mono text-[10.5px] tracking-[0.14em] uppercase text-white/85 py-1 px-2.5 rounded-full bg-black/40 backdrop-blur-[6px] border border-white/12">
+        <span className="absolute left-3.5 bottom-3 font-mono text-[10.5px] tracking-[0.14em] uppercase text-white/85 py-1 px-2.5 rounded-full bg-black/40 backdrop-blur-[6px] border border-white/12">
           {image.label}
         </span>
       )}
@@ -126,12 +126,12 @@ export function PDHero({ project }: { project: Project }) {
   const h = project.hero!
   return (
     <section className="relative pt-[clamp(80px,12vw,160px)] pb-[clamp(48px,8vw,96px)] overflow-hidden isolate">
-      <div className="absolute -inset-[10%] opacity-60 z-0" style={{ background: "var(--mesh-soft)" }} />
-      <div className="absolute inset-0 bg-[image:var(--grain-url)] mix-blend-overlay opacity-45 pointer-events-none z-0" />
+      <div className="absolute inset-[-10%] opacity-60 z-0" style={{ background: "var(--mesh-soft)" }} />
+      <div className="absolute inset-0 bg-(image:--grain-url) mix-blend-overlay opacity-45 pointer-events-none z-0" />
 
-      <div className="shell relative z-[1]">
+      <div className="shell relative z-1">
         {/* Breadcrumbs */}
-        <div className="flex items-center gap-[14px] font-mono text-[12px] tracking-[0.14em] uppercase text-(--fg3) mb-8">
+        <div className="flex items-center gap-3.5 font-mono text-[12px] tracking-[0.14em] uppercase text-(--fg3) mb-8">
           <Link href="/" className="text-(--fg2) inline-flex items-center gap-1.5 hover:text-(--cobalt-300) transition-colors duration-140">
             <ArrowLeft size={12} /> Kennik.dk
           </Link>
@@ -202,7 +202,7 @@ export function PDHero({ project }: { project: Project }) {
         {/* Cover */}
         <div className="mt-16 relative aspect-video rounded-[32px] border border-(--cobalt-border-hi) overflow-hidden [box-shadow:0_40px_80px_-20px_rgba(0,0,0,0.5)]">
           <div className="absolute inset-0" style={{ background: h.cover }} />
-          <div className="absolute inset-0 bg-[image:var(--grain-url)] mix-blend-overlay opacity-35" />
+          <div className="absolute inset-0 bg-(image:--grain-url) mix-blend-overlay opacity-35" />
           <div className="absolute inset-0 flex items-center justify-center font-display italic text-[clamp(5rem,14vw,13rem)] text-white/94 tracking-tighter [text-shadow:0_4px_32px_rgba(0,0,0,0.5)]">
             {project.monogram}
           </div>
@@ -306,7 +306,7 @@ function SecGallery({ s }: { s: GallerySection }) {
           </div>
           {s.body && <BodyText body={s.body} />}
         </div>
-        <div className={`grid ${cols} gap-[18px]`}>
+        <div className={`grid ${cols} gap-4.5`}>
           {s.images.map((img, i) => (
             <CoverImg key={i} image={img} />
           ))}
@@ -332,12 +332,12 @@ function SecWideImage({ s }: { s: WideImageSection }) {
           style={{ aspectRatio: "var(--ar, 16/9)", ...ar }}
         >
           <div className="absolute inset-0" style={{ background: s.image.cover }} />
-          <div className="absolute inset-0 bg-[image:var(--grain-url)] mix-blend-overlay opacity-35" />
+          <div className="absolute inset-0 bg-(image:--grain-url) mix-blend-overlay opacity-35" />
           <div className="absolute inset-0 flex items-center justify-center font-display italic text-[clamp(5rem,12vw,10rem)] text-white/95 tracking-tighter">
             {s.image.mono}
           </div>
           {s.image.label && (
-            <span className="absolute left-[14px] bottom-3 font-mono text-[10.5px] tracking-[0.14em] uppercase text-white/85 py-1 px-2.5 rounded-full bg-black/40 backdrop-blur-[6px] border border-white/12">
+            <span className="absolute left-3.5 bottom-3 font-mono text-[10.5px] tracking-[0.14em] uppercase text-white/85 py-1 px-2.5 rounded-full bg-black/40 backdrop-blur-[6px] border border-white/12">
               {s.image.label}
             </span>
           )}
@@ -360,8 +360,8 @@ function SecAsideImage({ s }: { s: AsideImageSection }) {
         </div>
         <CoverImg
           image={s.image}
-          className={`relative aspect-[4/5] rounded-[24px] border border-(--cobalt-border-hi) overflow-hidden [box-shadow:0_32px_64px_-16px_rgba(0,0,0,0.5)]${isLeft ? " order-0 max-[880px]:order-1" : ""}`}
-          aspectClass="aspect-[4/5]"
+          className={`relative aspect-4/5 rounded-[24px] border border-(--cobalt-border-hi) overflow-hidden [box-shadow:0_32px_64px_-16px_rgba(0,0,0,0.5)]${isLeft ? " order-0 max-[880px]:order-1" : ""}`}
+          aspectClass="aspect-4/5"
           monoSize="text-[clamp(4rem,10vw,8rem)]"
         />
       </div>
@@ -458,12 +458,12 @@ function PDRelated({ related }: { related: NonNullable<Project["related"]> }) {
           </div>
           <Link
             href="/#work"
-            className="inline-flex items-center gap-2 py-[13px] px-5 text-[14px] font-normal bg-transparent text-(--fg2) rounded-full border border-(--cobalt-border) no-underline transition-[border-color,color] duration-140 hover:border-(--cobalt-border-hi) hover:text-(--fg1)"
+            className="inline-flex items-center gap-2 py-3.25 px-5 text-[14px] font-normal bg-transparent text-(--fg2) rounded-full border border-(--cobalt-border) no-underline transition-[border-color,color] duration-140 hover:border-(--cobalt-border-hi) hover:text-(--fg1)"
           >
             See all <ArrowRight size={14} />
           </Link>
         </div>
-        <div className="grid grid-cols-2 max-[760px]:grid-cols-1 gap-[18px]">
+        <div className="grid grid-cols-2 max-[760px]:grid-cols-1 gap-4.5">
           {related.map((p) => (
             <Link
               key={p.slug}
@@ -472,7 +472,7 @@ function PDRelated({ related }: { related: NonNullable<Project["related"]> }) {
             >
               <div className="aspect-square max-[540px]:aspect-video relative border-r max-[540px]:border-r-0 max-[540px]:border-b border-(--cobalt-border-lo)">
                 <div className="absolute inset-0" style={{ background: p.cover }} />
-                <div className="absolute inset-0 bg-[image:var(--grain-url)] mix-blend-overlay opacity-35" />
+                <div className="absolute inset-0 bg-(image:--grain-url) mix-blend-overlay opacity-35" />
                 <div className="absolute inset-0 flex items-center justify-center font-display italic text-[3rem] text-white/92 tracking-[-0.04em]">
                   {p.monogram}
                 </div>
@@ -510,7 +510,7 @@ function PDCTA() {
             "radial-gradient(at 50% 0%, rgba(2,59,230,0.25), transparent 50%), radial-gradient(at 20% 100%, rgba(178,102,255,0.16), transparent 55%), radial-gradient(at 80% 100%, rgba(93,226,255,0.12), transparent 55%)",
         }}
       />
-      <div className="shell relative z-[1]">
+      <div className="shell relative z-1">
         <Eyebrow>LIKE WHAT YOU SEE</Eyebrow>
         <h2
           className="font-display text-[clamp(2.4rem,5vw,4rem)] font-normal tracking-[-0.035em] leading-[1.05] text-(--fg1) mt-3 mb-6 mx-auto max-w-[22ch] text-balance"
@@ -527,13 +527,13 @@ function PDCTA() {
         <div className="inline-flex gap-3 flex-wrap justify-center">
           <Link
             href="/#contact"
-            className="inline-flex items-center gap-2 py-[13px] px-[22px] font-sans text-[14px] font-medium bg-(--cobalt-500) text-white rounded-full border border-(--cobalt-400) no-underline transition-[background,box-shadow] duration-140 hover:bg-(--cobalt-400) hover:text-white hover:[box-shadow:var(--glow-cobalt-soft)]"
+            className="inline-flex items-center gap-2 py-3.25 px-5.5 font-sans text-[14px] font-medium bg-(--cobalt-500) text-white rounded-full border border-(--cobalt-400) no-underline transition-[background,box-shadow] duration-140 hover:bg-(--cobalt-400) hover:text-white hover:[box-shadow:var(--glow-cobalt-soft)]"
           >
             <span>Start a project</span> <ArrowUpRight size={16} />
           </Link>
           <Link
             href="/#work"
-            className="inline-flex items-center gap-2 py-[13px] px-5 font-sans text-[14px] font-normal bg-transparent text-(--fg2) rounded-full border border-(--cobalt-border) no-underline transition-[border-color,color] duration-140 hover:border-(--cobalt-border-hi) hover:text-(--fg1)"
+            className="inline-flex items-center gap-2 py-3.25 px-5 font-sans text-[14px] font-normal bg-transparent text-(--fg2) rounded-full border border-(--cobalt-border) no-underline transition-[border-color,color] duration-140 hover:border-(--cobalt-border-hi) hover:text-(--fg1)"
           >
             <span>See all work</span> <ArrowRight size={16} />
           </Link>

@@ -14,7 +14,7 @@ function ProjectCard({ project }: { project: Project }) {
     <a
       ref={tiltRef as React.RefObject<HTMLAnchorElement>}
       href={`/work/${project.slug}`}
-      className="group relative flex cursor-pointer flex-col gap-6 text-inherit no-underline transition-all duration-[240ms]"
+      className="group relative flex cursor-pointer flex-col gap-6 text-inherit no-underline transition-all duration-240"
       style={{
         borderRadius: "28px 28px 28px 28px / 32px 32px 32px 32px",
         border: "1px solid var(--cobalt-border)",
@@ -25,13 +25,13 @@ function ProjectCard({ project }: { project: Project }) {
     >
       {/* Halo */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-[480ms] group-hover:opacity-70"
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-480 group-hover:opacity-70"
         style={{ background: "var(--mesh-soft)", borderRadius: "inherit" }}
       />
 
       {/* Cover */}
       <div
-        className="relative overflow-hidden transition-transform duration-[480ms] group-hover:-translate-y-0.5 group-hover:scale-[1.01]"
+        className="relative overflow-hidden transition-transform duration-480 group-hover:-translate-y-0.5 group-hover:scale-[1.01]"
         style={{
           aspectRatio: "16/10",
           borderRadius: 16,
@@ -66,7 +66,7 @@ function ProjectCard({ project }: { project: Project }) {
       </div>
 
       {/* Content */}
-      <div className="relative z-[1] flex items-start justify-between gap-4">
+      <div className="relative z-1 flex items-start justify-between gap-4">
         <div>
           <h3
             style={{
@@ -103,7 +103,7 @@ function ProjectCard({ project }: { project: Project }) {
           </div>
         </div>
         <span
-          className="inline-flex flex-shrink-0 items-center justify-center transition-all duration-[240ms] group-hover:rotate-[-45deg] group-hover:border-[--cobalt-500] group-hover:bg-[--cobalt-500] group-hover:text-white"
+          className="inline-flex shrink-0 items-center justify-center transition-all duration-240 group-hover:-rotate-45 group-hover:border-[--cobalt-500] group-hover:bg-[--cobalt-500] group-hover:text-white"
           style={{
             width: 44,
             height: 44,

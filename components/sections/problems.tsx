@@ -13,7 +13,9 @@ export async function Problems() {
           title={
             <>
               If something here{" "}
-              <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>sounds interesting</em>
+              <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>
+                sounds interesting
+              </em>
               , we should talk.
             </>
           }
@@ -31,11 +33,12 @@ export async function Problems() {
           {problems.map((row, i) => (
             <div
               key={i}
-              className="grid items-center gap-7 hover:bg-[rgba(2,59,230,0.04)] transition-colors duration-[240ms] cursor-default"
+              className="grid cursor-default items-center gap-7 transition-colors duration-240 hover:bg-[rgba(2,59,230,0.04)]"
               style={{
                 gridTemplateColumns: "56px 1fr 24px 1fr",
                 padding: "22px clamp(8px, 2vw, 24px)",
-                borderTop: i === 0 ? "none" : "1px solid var(--cobalt-border-lo)",
+                borderTop:
+                  i === 0 ? "none" : "1px solid var(--cobalt-border-lo)",
               }}
             >
               <span
@@ -58,7 +61,10 @@ export async function Problems() {
               >
                 &ldquo;{row.p}&rdquo;
               </span>
-              <span className="inline-flex items-center justify-center" style={{ color: "var(--cobalt-300)" }}>
+              <span
+                className="inline-flex items-center justify-center"
+                style={{ color: "var(--cobalt-300)" }}
+              >
                 <ArrowRight size={18} />
               </span>
               <span

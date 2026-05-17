@@ -35,7 +35,7 @@ export async function Process() {
             >
               {/* Accent line on hover */}
               <div
-                className="absolute top-0 left-0 h-full w-px opacity-0 transition-opacity duration-[240ms] group-hover:opacity-50"
+                className="absolute top-0 left-0 h-full w-px opacity-0 transition-opacity duration-240 group-hover:opacity-50"
                 style={{
                   background:
                     "linear-gradient(180deg, transparent, var(--cobalt-500), transparent)",

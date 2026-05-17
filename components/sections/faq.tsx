@@ -21,7 +21,7 @@ function FAQItem({
       }}
     >
       <button
-        className="flex justify-between items-center gap-6 w-full text-left transition-colors duration-[240ms] hover:text-[--cobalt-300]"
+        className="flex w-full items-center justify-between gap-6 text-left transition-colors duration-240 hover:text-[--cobalt-300]"
         style={{
           background: "transparent",
           color: "var(--fg1)",
@@ -39,7 +39,7 @@ function FAQItem({
       >
         <span>{item.q}</span>
         <span
-          className="inline-flex items-center justify-center flex-shrink-0 transition-all duration-[240ms]"
+          className="inline-flex shrink-0 items-center justify-center transition-all duration-240"
           style={{
             width: 36,
             height: 36,
@@ -95,7 +95,10 @@ export function FAQ({ items }: FAQProps) {
           eyebrow="FAQ — THE COMMON QUESTIONS"
           title={
             <>
-              Things <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>people ask first.</em>
+              Things{" "}
+              <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>
+                people ask first.
+              </em>
             </>
           }
           description="If your question isn't here, email it — I update this list when the same thing comes up three times. Yours might be next."

@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils"
+﻿import { cn } from "@/lib/utils"
 import { Eyebrow } from "@/components/ui/eyebrow"
 
 type SectionHeadProps = {
@@ -18,7 +18,7 @@ export function SectionHead({ eyebrow, title, description, row = false, classNam
           <h2 className="mt-0" style={{ marginTop: 18 }}>{title}</h2>
         </div>
         {description && (
-          <p className="text-[--fg2] text-[17px] leading-[1.55] max-w-[580px] m-0">
+          <p className="text-[--fg2] text-[17px] leading-[1.55] max-w-145 m-0">
             {description}
           </p>
         )}
@@ -31,7 +31,7 @@ export function SectionHead({ eyebrow, title, description, row = false, classNam
       <Eyebrow>{eyebrow}</Eyebrow>
       <h2 style={{ marginTop: 12 }}>{title}</h2>
       {description && (
-        <p className="text-[--fg2] text-[17px] leading-[1.55] max-w-[580px] m-0">
+        <p className="text-[--fg2] text-[17px] leading-[1.55] max-w-145 m-0">
           {description}
         </p>
       )}

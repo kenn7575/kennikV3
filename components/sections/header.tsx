@@ -22,27 +22,30 @@ export function Header() {
         borderBottom: "1px solid var(--cobalt-border)",
       }}
     >
-      <div className="flex items-center justify-between py-4 max-w-[1240px] mx-auto px-[clamp(20px,4vw,56px)]">
+      <div className="mx-auto flex max-w-310 items-center justify-between px-[clamp(20px,4vw,56px)] py-4">
         <Logo />
 
-        <nav className="hidden md:flex gap-7">
+        <nav className="hidden gap-7 md:flex">
           {["services", "process", "pricing", "about", "contact"].map((id) => (
             <button
               key={id}
               onClick={() => scrollTo(id)}
-              className="relative text-sm capitalize text-[--fg2] hover:text-[--fg1] transition-colors duration-[240ms] py-1.5 px-0.5 group"
+              className="group relative px-0.5 py-1.5 text-sm text-[--fg2] capitalize transition-colors duration-240 hover:text-[--fg1]"
             >
               {id.charAt(0).toUpperCase() + id.slice(1)}
               <span
-                className="absolute left-0 bottom-0 h-px bg-[--cobalt-300] transition-all duration-[240ms]"
-                style={{ right: "100%", transition: "right var(--d-base) var(--ease-out)" }}
+                className="absolute bottom-0 left-0 h-px bg-[--cobalt-300] transition-all duration-240"
+                style={{
+                  right: "100%",
+                  transition: "right var(--d-base) var(--ease-out)",
+                }}
                 data-nav-underline
               />
             </button>
           ))}
           <Link
             href="/projects"
-            className="relative text-sm capitalize text-[--fg2] hover:text-[--fg1] transition-colors duration-[240ms] py-1.5 px-0.5"
+            className="relative px-0.5 py-1.5 text-sm text-[--fg2] capitalize transition-colors duration-240 hover:text-[--fg1]"
           >
             Work
           </Link>
@@ -52,7 +55,7 @@ export function Header() {
           <Tag dot>AVAILABLE Q3</Tag>
           <Button
             onClick={() => scrollTo("contact")}
-            className="rounded-full gap-2 bg-[--cobalt-500] hover:bg-[--cobalt-400] text-white border-0"
+            className="gap-2 rounded-full border-0 bg-[--cobalt-500] text-white hover:bg-[--cobalt-400]"
             style={{ boxShadow: "var(--glow-cobalt-soft)" }}
           >
             Hire me
