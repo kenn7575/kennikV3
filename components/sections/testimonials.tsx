@@ -11,23 +11,27 @@ export async function Testimonials() {
           eyebrow="TESTIMONIALS — FROM PEOPLE WHO PAID"
           title={
             <>
-              Words from <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>past clients.</em>
+              Words from{" "}
+              <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>
+                past clients.
+              </em>
             </>
           }
           description="Quoted with permission. Happy to put you in touch with any of them — references on request, no canned reels."
           row
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-[22px]">
+        <div className="grid grid-cols-1 gap-5.5 md:grid-cols-2">
           {testimonials.map((t, i) => (
             <figure
               key={i}
-              className="relative flex flex-col gap-6 m-0 transition-colors duration-[240ms] hover:border-[--cobalt-border-hi]"
+              className="relative m-0 flex flex-col gap-6 transition-colors duration-240 hover:border-[--cobalt-border-hi]"
               style={{
                 border: "1px solid var(--cobalt-border)",
                 borderRadius: "24px 24px 24px 24px / 28px 28px 28px 28px",
                 padding: "32px 30px",
-                background: "linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0))",
+                background:
+                  "linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0))",
               }}
             >
               <span
@@ -59,9 +63,9 @@ export async function Testimonials() {
                 {t.quote}
               </blockquote>
 
-              <figcaption className="flex items-center gap-3.5 mt-auto">
+              <figcaption className="mt-auto flex items-center gap-3.5">
                 <span
-                  className="inline-flex items-center justify-center flex-shrink-0"
+                  className="inline-flex shrink-0 items-center justify-center"
                   style={{
                     width: 44,
                     height: 44,
@@ -76,7 +80,9 @@ export async function Testimonials() {
                   {t.initials}
                 </span>
                 <span className="flex flex-col gap-0.5">
-                  <span style={{ color: "var(--fg1)", fontSize: 14 }}>{t.who}</span>
+                  <span style={{ color: "var(--fg1)", fontSize: 14 }}>
+                    {t.who}
+                  </span>
                   <span
                     style={{
                       fontFamily: "var(--font-mono)",

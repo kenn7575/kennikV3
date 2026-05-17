@@ -3,16 +3,11 @@
 import Link from "next/link"
 import { ArrowLeft, ArrowUpRight } from "lucide-react"
 import type { Project } from "@/lib/data/projects"
+import { RevealText } from "../ui/reveal-text"
 
 /* ------------------------------------------------------------------ */
 /*  Static bench data — "what's on the bench right now"                 */
 /* ------------------------------------------------------------------ */
-
-const BENCH = [
-  { t: "Resolving p99 spikes on a SaaS billing API", c: "ON · WK 3" },
-  { t: "A small Rust LSP for SQL migrations", c: "SHIP · WK 1" },
-  { t: "Mentoring two devs on a Rails-to-Hono port", c: "ON · WK 5" },
-]
 
 /* ------------------------------------------------------------------ */
 /*  Hero                                                                 */
@@ -45,11 +40,25 @@ function PIHero({ projects }: { projects: Project[] }) {
         </div>
 
         {/* Big title */}
-        <h1 className="m-0 font-display text-[clamp(4rem,14vw,13rem)] leading-[0.86] font-normal tracking-tighter text-balance text-[--fg1]">
-          Selected{" "}
-          <em style={{ color: "var(--cobalt-300)" }} className="italic">
-            work.
-          </em>
+
+        <h1
+          className="m-0"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(3rem, 9.5vw, 9rem)",
+            lineHeight: 0.92,
+            letterSpacing: "-0.045em",
+            fontWeight: 400,
+            color: "var(--fg1)",
+            textWrap: "balance",
+            textShadow:
+              "0 2px 24px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.3)",
+          }}
+        >
+          <RevealText text="Selected" />{" "}
+          <span style={{ fontStyle: "italic", color: "var(--cobalt-300)" }}>
+            Projects.
+          </span>
         </h1>
 
         {/* Sub row: meta + blurb */}
@@ -61,52 +70,6 @@ function PIHero({ projects }: { projects: Project[] }) {
             <em className="text-[--ember] italic">STEALTH</em>, mixed in for
             context.
           </p>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* ------------------------------------------------------------------ */
-/*  Bench                                                                */
-/* ------------------------------------------------------------------ */
-
-function PIBench() {
-  return (
-    <section className="border-t border-b border-[--cobalt-border] bg-white/[0.012] py-7">
-      <div className="shell">
-        <div
-          className="bench-inner grid items-start gap-9"
-          style={{ gridTemplateColumns: "180px 1fr" }}
-        >
-          {/* Label */}
-          <div className="flex flex-col gap-1.5">
-            <span className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.16em] text-[--cobalt-300] uppercase">
-              <span className="h-1.5 w-1.5 shrink-0 animate-[pulse_2.4s_ease-out_infinite] rounded-full bg-[--success] shadow-[0_0_8px_var(--success)]" />
-              CURRENTLY · ON THE BENCH
-            </span>
-            <span className="font-display text-[20px] leading-[1.1] tracking-[-0.02em] text-[--fg1] italic">
-              What I&apos;m <em className="italic">working on</em> right now.
-            </span>
-          </div>
-
-          {/* List */}
-          <div className="flex flex-col border-t border-[--cobalt-border-lo]">
-            {BENCH.map((b, i) => (
-              <div
-                key={i}
-                className={`grid items-baseline gap-6 py-3 ${i < BENCH.length - 1 ? "border-b border-[--cobalt-border-lo]" : ""}`}
-                style={{ gridTemplateColumns: "1fr 140px" }}
-              >
-                <span className="font-sans text-base leading-[1.4] text-[--fg1]">
-                  {b.t}
-                </span>
-                <span className="text-right font-mono text-[11px] tracking-[0.14em] text-[--fg3] uppercase">
-                  {b.c}
-                </span>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </section>
@@ -354,7 +317,6 @@ export function ProjectsPage({ projects }: { projects: Project[] }) {
   return (
     <>
       <PIHero projects={projects} />
-      <PIBench />
       <PIFeatured items={featured} />
       <PIGrid items={rest} />
     </>

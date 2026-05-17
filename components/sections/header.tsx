@@ -61,8 +61,9 @@ export function Header() {
 
         <div className="flex items-center gap-3">
           <Button
+            variant="default"
             onClick={() => scrollTo("contact")}
-            className="gap-2 rounded-full border-0 bg-[--cobalt-500] text-white hover:bg-[--cobalt-400]"
+            className="flex items-center justify-center gap-2 rounded-full"
             style={{ boxShadow: "var(--glow-cobalt-soft)" }}
           >
             Hire me

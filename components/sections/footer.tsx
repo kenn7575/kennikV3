@@ -1,15 +1,20 @@
 export function Footer() {
   const links = [
-    { label: "SERVICES", href: "#services" },
-    { label: "WORK", href: "#work" },
-    { label: "PROCESS", href: "#process" },
-    { label: "PRICING", href: "#pricing" },
-    { label: "ABOUT", href: "#about" },
-    { label: "CONTACT", href: "#contact" },
+    { label: "SERVICES", href: "/#services" },
+    { label: "PROJECTS", href: "/projects" },
+    { label: "PROCESS", href: "/#process" },
+    { label: "PRICING", href: "/#pricing" },
+    { label: "ABOUT", href: "/#about" },
+    { label: "CONTACT", href: "/#contact" },
   ]
 
   return (
-    <footer style={{ borderTop: "1px solid var(--cobalt-border)", padding: "clamp(48px, 8vw, 96px) 0 clamp(28px, 4vw, 48px)" }}>
+    <footer
+      style={{
+        borderTop: "1px solid var(--cobalt-border)",
+        padding: "clamp(48px, 8vw, 96px) 0 clamp(28px, 4vw, 48px)",
+      }}
+    >
       <div className="shell">
         <div
           style={{
@@ -19,7 +24,8 @@ export function Footer() {
             lineHeight: 0.85,
             letterSpacing: "-0.05em",
             marginBottom: 56,
-            background: "linear-gradient(180deg, var(--fg1) 0%, var(--ink-500) 95%)",
+            background:
+              "linear-gradient(180deg, var(--fg1) 0%, var(--ink-500) 95%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
@@ -31,7 +37,7 @@ export function Footer() {
         </div>
 
         <div
-          className="flex justify-between items-baseline gap-8 flex-wrap"
+          className="flex flex-wrap items-baseline justify-between gap-8"
           style={{
             fontSize: 13,
             color: "var(--fg3)",
@@ -40,20 +46,22 @@ export function Footer() {
             letterSpacing: "0.12em",
           }}
         >
-          <div>© 2026 — built solo, hosted on Fly.io</div>
-          <div className="flex gap-12 flex-wrap">
+          <div>© 2026 — built solo, hosted on Vercel</div>
+          <div className="flex flex-wrap gap-12">
             {links.map(({ label, href }) => (
               <a
                 key={label}
                 href={href}
-                style={{ color: "var(--fg2)", transition: "color var(--d-fast) var(--ease-out)" }}
+                style={{
+                  color: "var(--fg2)",
+                  transition: "color var(--d-fast) var(--ease-out)",
+                }}
                 className="hover:text-[--fg1]"
               >
                 {label}
               </a>
             ))}
           </div>
-          <div>v0.4.2</div>
         </div>
       </div>
     </footer>

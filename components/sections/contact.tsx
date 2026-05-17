@@ -186,10 +186,8 @@ export function Contact() {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="gap-2 rounded-full border-0 bg-[--cobalt-500] text-white hover:bg-[--cobalt-400] disabled:opacity-60"
+                  className="flex items-center justify-center gap-2 rounded-full"
                   style={{
-                    padding: "13px 24px",
-                    fontSize: 14,
                     boxShadow: "var(--glow-cobalt-soft)",
                   }}
                 >
@@ -206,7 +204,7 @@ export function Contact() {
                 label: "EMAIL",
                 content: (
                   <a
-                    href="mailto:hi@kennik.dk"
+                    href="mailto:info@kennik.dk"
                     style={{ fontSize: 18, color: "var(--fg1)" }}
                   >
                     info@kennik.dk
@@ -218,40 +216,39 @@ export function Contact() {
                 content: (
                   <div className="flex flex-wrap gap-5">
                     {[
-                      { icon: <Globe size={16} />, label: "github" },
-                      { icon: <Globe size={16} />, label: "linkedin" },
-                      { icon: <X size={16} />, label: "@kennik" },
-                    ].map(({ icon, label }) => (
+                      {
+                        icon: (
+                          <img
+                            className="h-5 w-5"
+                            src="/GitHub_Invertocat_White.svg"
+                            alt="GitHub"
+                          />
+                        ),
+                        label: "github",
+                        href: "https://github.com/kenn7575",
+                      },
+                      {
+                        icon: (
+                          <img
+                            className="h-5 w-5"
+                            src="/InBug-White.png"
+                            alt="LinkedIn"
+                          />
+                        ),
+                        label: "linkedin",
+                        href: "https://www.linkedin.com/in/kenni-kollemorten/",
+                      },
+                    ].map(({ icon, label, href }) => (
                       <a
+                        target="_blank"
                         key={label}
-                        href="#"
+                        href={href}
                         className="inline-flex items-center gap-2"
                         style={{ color: "var(--fg1)" }}
                       >
                         {icon} {label}
                       </a>
                     ))}
-                  </div>
-                ),
-              },
-              {
-                label: "BOOKING WINDOW",
-                content: (
-                  <>
-                    <div style={{ fontSize: 16, color: "var(--fg1)" }}>
-                      Q3 2026 — Q1 2027
-                    </div>
-                    <div style={{ fontSize: 14, color: "var(--fg3)" }}>
-                      Two slots open · 8–12 week engagements
-                    </div>
-                  </>
-                ),
-              },
-              {
-                label: "NOT A FIT",
-                content: (
-                  <div style={{ fontSize: 14, color: "var(--fg2)" }}>
-                    NFTs · ad-tech · &ldquo;we&apos;re like Uber but for…&rdquo;
                   </div>
                 ),
               },

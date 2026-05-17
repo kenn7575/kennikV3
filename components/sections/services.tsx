@@ -275,7 +275,7 @@ export function Services() {
           description="I keep the menu small on purpose. If your project doesn't fit cleanly into one of these, let's talk anyway — sometimes it's two of them stitched together."
           row
         />
-        <div className="grid grid-cols-1 gap-[18px] md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4.5 md:grid-cols-2">
           {services.map((s, i) => (
             <ServiceCard key={s.id} service={s} index={i} />
           ))}

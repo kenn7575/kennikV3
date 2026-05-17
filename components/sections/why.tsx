@@ -34,7 +34,7 @@ export async function Why() {
           {reasons.map((w, i) => (
             <div
               key={i}
-              className="flex flex-col gap-3 transition-colors duration-[240ms] hover:bg-[--ink-900]"
+              className="flex flex-col gap-3 transition-colors duration-240 hover:bg-[--ink-900]"
               style={{
                 background: "var(--ink-950)",
                 padding: "36px 30px 32px",

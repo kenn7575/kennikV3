@@ -32,7 +32,7 @@ export async function Stack() {
           {groups.map((g) => (
             <div
               key={g.group}
-              className="transition-colors duration-[240ms] hover:border-[--cobalt-border-hi]"
+              className="transition-colors duration-240 hover:border-[--cobalt-border-hi]"
               style={{
                 border: "1px solid var(--cobalt-border)",
                 borderRadius: "20px 20px 20px 20px / 24px 24px 24px 24px",
@@ -68,7 +68,7 @@ export async function Stack() {
                     }}
                   >
                     <span
-                      className="flex-shrink-0"
+                      className="shrink-0"
                       style={{
                         width: 5,
                         height: 5,
