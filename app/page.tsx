@@ -18,13 +18,15 @@ import { getProjects } from "@/lib/data/projects"
 import { getPackages } from "@/lib/data/packages"
 import { getFaqs } from "@/lib/data/faq"
 import { getProjectStats } from "@/lib/data/stats"
+import { prisma } from "@/lib/prisma"
 
 export default async function Page() {
-  const [projects, packages, faqs, stats] = await Promise.all([
+  const [projects, packages, faqs, stats, slots] = await Promise.all([
     getProjects(),
     getPackages(),
     getFaqs(),
     getProjectStats(),
+    prisma.availabilitySlot.findMany({ orderBy: { order: "asc" } }),
   ])
 
   return (
@@ -38,7 +40,7 @@ export default async function Page() {
         <Process />
         <Stack />
         <Why />
-        <Availability />
+        <Availability slots={slots} />
         <About />
         <Testimonials />
         <Pricing packages={packages} />

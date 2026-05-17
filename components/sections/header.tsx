@@ -1,13 +1,21 @@
 "use client"
 
 import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
 import { ArrowUpRight } from "lucide-react"
 import { Logo } from "@/components/ui/logo"
 import { Tag } from "@/components/ui/tag"
 import { Button } from "@/components/ui/button"
 
 export function Header() {
+  const pathname = usePathname()
+  const router = useRouter()
+
   const scrollTo = (id: string) => {
+    if (pathname !== "/") {
+      router.push(`/#${id}`)
+      return
+    }
     const el = document.getElementById(id)
     if (el) window.scrollTo({ top: el.offsetTop - 60, behavior: "smooth" })
   }
@@ -47,12 +55,11 @@ export function Header() {
             href="/projects"
             className="relative px-0.5 py-1.5 text-sm text-[--fg2] capitalize transition-colors duration-240 hover:text-[--fg1]"
           >
-            Work
+            Projects
           </Link>
         </nav>
 
         <div className="flex items-center gap-3">
-          <Tag dot>AVAILABLE Q3</Tag>
           <Button
             onClick={() => scrollTo("contact")}
             className="gap-2 rounded-full border-0 bg-[--cobalt-500] text-white hover:bg-[--cobalt-400]"

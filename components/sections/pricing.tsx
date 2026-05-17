@@ -15,7 +15,9 @@ function PackageCard({ pkg }: { pkg: Package }) {
     <div
       className="relative flex flex-col gap-4 transition-all duration-[240ms]"
       style={{
-        border: pkg.featured ? "1px solid var(--cobalt-500)" : "1px solid var(--cobalt-border)",
+        border: pkg.featured
+          ? "1px solid var(--cobalt-500)"
+          : "1px solid var(--cobalt-border)",
         borderRadius: "28px 28px 28px 28px / 32px 32px 32px 32px",
         padding: "32px 30px 28px",
         background: pkg.featured
@@ -83,20 +85,35 @@ function PackageCard({ pkg }: { pkg: Package }) {
         {pkg.duration}
       </div>
 
-      <p style={{ fontSize: 15, lineHeight: 1.55, color: "var(--fg2)", margin: "6px 0 0" }}>
+      <p
+        style={{
+          fontSize: 15,
+          lineHeight: 1.55,
+          color: "var(--fg2)",
+          margin: "6px 0 0",
+        }}
+      >
         {pkg.blurb}
       </p>
 
       <ul
-        className="list-none p-0 m-0 flex flex-col gap-2.5"
+        className="m-0 flex list-none flex-col gap-2.5 p-0"
         style={{
           borderTop: "1px dashed var(--cobalt-border)",
           paddingTop: 18,
         }}
       >
         {pkg.includes.map((item, i) => (
-          <li key={i} className="flex items-start gap-2.5" style={{ fontSize: 14.5, color: "var(--fg1)", lineHeight: 1.45 }}>
-            <Check size={16} className="flex-shrink-0 mt-0.5" style={{ color: "var(--cobalt-300)" }} />
+          <li
+            key={i}
+            className="flex items-start gap-2.5"
+            style={{ fontSize: 14.5, color: "var(--fg1)", lineHeight: 1.45 }}
+          >
+            <Check
+              size={16}
+              className="mt-0.5 flex-shrink-0"
+              style={{ color: "var(--cobalt-300)" }}
+            />
             <span>{item}</span>
           </li>
         ))}
@@ -105,10 +122,10 @@ function PackageCard({ pkg }: { pkg: Package }) {
       <div className="mt-auto pt-2">
         <Button
           onClick={() => scrollTo("contact")}
-          className={`rounded-full gap-2 w-full justify-center ${
+          className={`w-full justify-center gap-2 rounded-full ${
             pkg.featured
-              ? "bg-[--cobalt-500] hover:bg-[--cobalt-400] text-white border-0"
-              : "bg-transparent border-[--cobalt-border-hi] text-[--fg1] hover:bg-white/5"
+              ? "border-0 bg-[--cobalt-500] text-white hover:bg-[--cobalt-400]"
+              : "border-[--cobalt-border-hi] bg-transparent text-[--fg1] hover:bg-white/5"
           }`}
           style={{
             padding: "13px 24px",
@@ -137,21 +154,26 @@ export function Pricing({ packages }: PricingProps) {
           title={
             <>
               Three packages.{" "}
-              <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>No &ldquo;contact for price&rdquo;.</em>
+              <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>
+                No &ldquo;contact for price&rdquo;.
+              </em>
             </>
           }
           description="Pick the closest one to what you need — final price is fixed after a 20-minute scoping call. Nothing hidden, no day-rate surprises mid-build."
           row
         />
 
-        <div className="grid gap-[22px] items-stretch" style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
+        <div
+          className="grid items-stretch gap-[22px]"
+          style={{ gridTemplateColumns: "repeat(3, 1fr)" }}
+        >
           {packages.map((pkg) => (
             <PackageCard key={pkg.id} pkg={pkg} />
           ))}
         </div>
 
         <p
-          className="text-center mt-9"
+          className="mt-9 text-center"
           style={{
             color: "var(--fg3)",
             fontSize: 14,
@@ -159,7 +181,7 @@ export function Pricing({ packages }: PricingProps) {
             letterSpacing: "0.06em",
           }}
         >
-          PRICES IN EUR · INVOICED 50% UPFRONT, 50% ON SHIP · VAT EXCLUDED
+          PRICES IN DKK · INVOICED 50% UPFRONT, 50% ON SHIP · VAT/MOMS EXCLUDED
         </p>
       </div>
     </section>

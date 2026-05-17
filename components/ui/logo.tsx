@@ -7,9 +7,9 @@ type LogoProps = {
 export function Logo({ className }: LogoProps) {
   return (
     <a
-      href="#home"
+      href="/"
       className={cn(
-        "inline-flex items-center gap-2.5 text-[--fg1] no-underline font-semibold tracking-tight",
+        "inline-flex items-center gap-2.5 font-semibold tracking-tight text-[--fg1] no-underline",
         className
       )}
     >

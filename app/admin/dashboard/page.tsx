@@ -14,6 +14,7 @@ const sections = [
   { label: "Values", id: "values", description: "Why-choose-me reasons" },
   { label: "Problems", id: "problems", description: "Problem/solution pairs" },
   { label: "Stats", id: "stats", description: "Project statistics" },
+  { label: "Availability", id: "availability", description: "Open slots for new projects" },
 ]
 
 export default async function AdminDashboard() {

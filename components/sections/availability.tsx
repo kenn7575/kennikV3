@@ -3,11 +3,26 @@
 import { ArrowUpRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-export function Availability() {
+type Slot = {
+  id: number
+  label: string
+  startDate: string
+  endDate: string
+  open: boolean
+}
+
+export function Availability({ slots }: { slots: Slot[] }) {
   const scrollTo = (id: string) => {
     const el = document.getElementById(id)
     if (el) window.scrollTo({ top: el.offsetTop - 60, behavior: "smooth" })
   }
+
+  const openSlots = slots.filter((s) => s.open)
+  const count = openSlots.length
+
+  const periodLabel = openSlots.length > 0
+    ? openSlots.map((s) => `${s.startDate} — ${s.endDate}`).join(", ")
+    : null
 
   return (
     <section
@@ -29,7 +44,7 @@ export function Availability() {
         }}
       />
 
-      <div className="shell relative z-[1]">
+      <div className="shell relative z-1">
         <div className="flex justify-between items-center gap-8 flex-wrap">
           <p
             style={{
@@ -42,11 +57,25 @@ export function Availability() {
               fontWeight: 400,
             }}
           >
-            Two slots open{" "}
-            <em style={{ fontStyle: "italic", color: "var(--cobalt-300)" }}>
-              Q3 2026 — Q1 2027.
-            </em>{" "}
-            One of them has your name on it.
+            {count === 0 ? (
+              <>
+                No open slots right now.{" "}
+                <em style={{ fontStyle: "italic", color: "var(--cobalt-300)" }}>
+                  Get in touch
+                </em>{" "}
+                to join the waitlist.
+              </>
+            ) : (
+              <>
+                {count === 1 ? "One slot open" : `${count} slots open`}{" "}
+                {periodLabel && (
+                  <em style={{ fontStyle: "italic", color: "var(--cobalt-300)" }}>
+                    {periodLabel}.
+                  </em>
+                )}{" "}
+                One of them has your name on it.
+              </>
+            )}
           </p>
 
           <div className="flex items-center gap-5 flex-wrap">
@@ -77,7 +106,7 @@ export function Availability() {
               className="rounded-full gap-2 bg-[--cobalt-500] hover:bg-[--cobalt-400] text-white border-0"
               style={{ padding: "13px 24px", fontSize: 14, boxShadow: "var(--glow-cobalt-soft)" }}
             >
-              Claim a slot
+              {count === 0 ? "Join waitlist" : "Claim a slot"}
               <ArrowUpRight size={16} />
             </Button>
           </div>
