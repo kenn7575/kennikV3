@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { Tag } from "@/components/ui/tag"
 import { SectionHead } from "@/components/ui/section-head"
+import { sendContactNotification } from "@/lib/actions/contact"
 
 const fieldStyle = {
   fontFamily: "var(--font-sans)",
@@ -47,15 +48,26 @@ export function Contact() {
     message: "",
   })
   const [sent, setSent] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const set =
     (key: keyof FormState) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       setForm((prev) => ({ ...prev, [key]: e.target.value }))
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setSent(true)
+    setLoading(true)
+    setError(null)
+    try {
+      await sendContactNotification(form)
+      setSent(true)
+    } catch {
+      setError("Something went wrong — try emailing me directly.")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -123,6 +135,7 @@ export function Contact() {
                 <div>
                   <label style={labelStyle}>NAME</label>
                   <input
+                    name="name"
                     style={fieldStyle}
                     value={form.name}
                     onChange={set("name")}
@@ -163,18 +176,24 @@ export function Contact() {
                   required
                 />
               </div>
+              {error && (
+                <p style={{ color: "var(--fg2)", fontSize: 13, margin: 0 }}>
+                  {error}
+                </p>
+              )}
               <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
                 <Tag>EXPECTED REPLY · &lt; 24H</Tag>
                 <Button
                   type="submit"
-                  className="gap-2 rounded-full border-0 bg-[--cobalt-500] text-white hover:bg-[--cobalt-400]"
+                  disabled={loading}
+                  className="gap-2 rounded-full border-0 bg-[--cobalt-500] text-white hover:bg-[--cobalt-400] disabled:opacity-60"
                   style={{
                     padding: "13px 24px",
                     fontSize: 14,
                     boxShadow: "var(--glow-cobalt-soft)",
                   }}
                 >
-                  Send it
+                  {loading ? "Sending…" : "Send it"}
                   <ArrowUpRight size={16} />
                 </Button>
               </div>
