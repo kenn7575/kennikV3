@@ -15,7 +15,7 @@ const ICON_MAP = {
 
 function ServiceCard({ service, index }: { service: Service; index: number }) {
   const Icon = ICON_MAP[service.icon]
-  const tiltRef = useTilt(5)
+  const tiltCallback = useTilt(5)
   const [hovered, setHovered] = useState(false)
   const revealRef = useRef<HTMLDivElement>(null)
 
@@ -38,7 +38,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
   return (
     <div
       ref={(node: HTMLDivElement | null) => {
-        ;(tiltRef as { current: HTMLElement | null }).current = node
+        tiltCallback(node)
         revealRef.current = node
       }}
       className="svc-card relative flex flex-col gap-4 overflow-hidden"

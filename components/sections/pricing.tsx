@@ -150,20 +150,20 @@ export function Pricing({ packages }: PricingProps) {
     <section id="pricing" className="section">
       <div className="shell">
         <SectionHead
-          eyebrow="PRICING — STRAIGHT NUMBERS"
+          eyebrow="PRICING"
           title={
             <>
-              Three packages.{" "}
+              This is what{" "}
               <em style={{ fontStyle: "italic", color: "var(--fg2)" }}>
-                No &ldquo;contact for price&rdquo;.
+                I offer.
               </em>
             </>
           }
-          description="Pick the closest one to what you need — final price is fixed after a 20-minute scoping call. Nothing hidden, no day-rate surprises mid-build."
+          description="You can choose to hire me by project or by the hour. If you have a specific project in mind, I recommend the task-based option."
           row
         />
 
-        <div className="grid items-stretch gap-5.5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 items-stretch gap-5.5 sm:grid-cols-2 lg:grid-cols-3">
           {packages.map((pkg) => (
             <PackageCard key={pkg.id} pkg={pkg} />
           ))}

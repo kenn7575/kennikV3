@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { ArrowUpRight } from "lucide-react"
-import { Globe, X } from "lucide-react"
+import { Globe } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { Tag } from "@/components/ui/tag"
@@ -63,8 +63,13 @@ export function Contact() {
     try {
       await sendContactNotification(form)
       setSent(true)
-    } catch {
-      setError("Something went wrong — try emailing me directly.")
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : ""
+      setError(
+        msg.includes("Too many")
+          ? "Too many submissions — please try again in an hour."
+          : "Something went wrong — try emailing me directly."
+      )
     } finally {
       setLoading(false)
     }

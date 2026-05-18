@@ -88,9 +88,17 @@ function FeatCover({ project }: { project: Project }) {
   return (
     <div className="feat-cover relative aspect-5/4 overflow-hidden rounded-[28px] border border-[--cobalt-border-hi] shadow-[0_40px_80px_-24px_rgba(0,0,0,0.55)] transition-transform duration-(--d-slow) ease-out">
       {project.coverImage ? (
-        <Image src={project.coverImage} alt={project.name} fill className="feat-cover-grad object-cover transition-transform duration-(--d-slow) ease-out" />
+        <Image
+          src={project.coverImage}
+          alt={project.name}
+          fill
+          className="feat-cover-grad object-cover transition-transform duration-(--d-slow) ease-out"
+        />
       ) : (
-        <div className="feat-cover-grad absolute inset-0 transition-transform duration-(--d-slow) ease-out" style={{ background: project.cover }} />
+        <div
+          className="feat-cover-grad absolute inset-0 transition-transform duration-(--d-slow) ease-out"
+          style={{ background: project.cover }}
+        />
       )}
       <div className="absolute inset-0 [background-image:var(--grain-url)] opacity-35 mix-blend-overlay" />
       <div className="absolute inset-0 flex items-center justify-center font-display text-[clamp(5rem,14vw,12rem)] tracking-tighter text-white/94 italic [text-shadow:0_4px_32px_rgba(0,0,0,0.5)]">
@@ -198,9 +206,17 @@ function PICard({ p, size }: { p: Project; size: "xl" | "lg" | "md" | "sm" }) {
         style={{ minHeight: minH }}
       >
         {p.coverImage ? (
-          <Image src={p.coverImage} alt={p.name} fill className="card-grad object-cover transition-transform duration-(--d-slow) ease-out" />
+          <Image
+            src={p.coverImage}
+            alt={p.name}
+            fill
+            className="card-grad object-cover transition-transform duration-(--d-slow) ease-out"
+          />
         ) : (
-          <div className="card-grad absolute inset-0 transition-transform duration-(--d-slow) ease-out" style={{ background: p.cover }} />
+          <div
+            className="card-grad absolute inset-0 transition-transform duration-(--d-slow) ease-out"
+            style={{ background: p.cover }}
+          />
         )}
         <div className="absolute inset-0 [background-image:var(--grain-url)] opacity-35 mix-blend-overlay" />
         <div
@@ -284,10 +300,6 @@ function PIGrid({ items }: { items: Project[] }) {
               The <em className="text-[--fg2] italic">rest of it.</em>
             </h2>
           </div>
-          <p className="m-0 max-w-[44ch] text-base leading-[1.55] text-[--fg2]">
-            Sized roughly by how much I learned. Rescued and Stealth projects
-            are tagged so you can tell the story at a glance.
-          </p>
         </div>
 
         {/* Masonry grid */}

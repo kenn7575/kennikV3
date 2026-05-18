@@ -337,17 +337,18 @@
    ============================================================ */
 .svc-card {
     opacity: 0;
-    transform: translateY(24px);
+    translate: 0 24px;
     transition:
         opacity 520ms var(--ease-out) var(--stagger, 0ms),
-        transform 520ms var(--ease-out) var(--stagger, 0ms),
+        translate 520ms var(--ease-out) var(--stagger, 0ms),
         border-color 240ms var(--ease-out),
         box-shadow 240ms var(--ease-out);
+    will-change: transform;
 }
 
 .svc-card.svc-in {
     opacity: 1;
-    transform: translateY(0);
+    translate: 0 0;
 }
 
 .svc-card:hover {
@@ -368,7 +369,7 @@
 @media (prefers-reduced-motion: reduce) {
     .svc-card {
         opacity: 1;
-        transform: none;
+        translate: none;
         transition: none;
     }
 }

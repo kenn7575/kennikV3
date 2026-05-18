@@ -13,7 +13,7 @@ function ProjectCard({ project }: { project: Project }) {
 
   return (
     <a
-      ref={tiltRef as React.RefObject<HTMLAnchorElement>}
+      ref={tiltRef as unknown as React.RefObject<HTMLAnchorElement>}
       href={`/work/${project.slug}`}
       className="group relative flex cursor-pointer flex-col gap-6 text-inherit no-underline transition-all duration-240"
       style={{
@@ -40,9 +40,17 @@ function ProjectCard({ project }: { project: Project }) {
         }}
       >
         {project.coverImage ? (
-          <Image src={project.coverImage} alt={project.name} fill className="object-cover" />
+          <Image
+            src={project.coverImage}
+            alt={project.name}
+            fill
+            className="object-cover"
+          />
         ) : (
-          <div className="absolute inset-0" style={{ background: project.cover }} />
+          <div
+            className="absolute inset-0"
+            style={{ background: project.cover }}
+          />
         )}
         <div
           className="absolute inset-0"
@@ -191,7 +199,7 @@ export function Work({ projects, stats }: WorkProps) {
               </em>
             </>
           }
-          description="A preview of my recent work — each one shipped, each one hurt a little. But each one also added some value."
+          description="A preview of my recent work"
           row
         />
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">

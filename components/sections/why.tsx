@@ -22,9 +22,8 @@ export async function Why() {
         />
 
         <div
-          className="grid overflow-hidden"
+          className="grid grid-cols-2 md:grid-cols-3 overflow-hidden"
           style={{
-            gridTemplateColumns: "repeat(3, 1fr)",
             gap: 1,
             background: "var(--cobalt-border)",
             border: "1px solid var(--cobalt-border)",
