@@ -6,9 +6,9 @@ export function getFirebaseAdmin(): typeof admin {
   if (!initialized) {
     let credential: admin.credential.Credential
 
-    if (process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
+    if (process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT) {
       const serviceAccount = JSON.parse(
-        Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT_JSON, "base64").toString()
+        Buffer.from(process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT, "base64").toString()
       )
       credential = admin.credential.cert(serviceAccount)
     } else {
