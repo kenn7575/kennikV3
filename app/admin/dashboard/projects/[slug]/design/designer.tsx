@@ -14,7 +14,7 @@ import {
   labelCls,
   rowCls,
 } from "./_designer/primitives"
-import { Field, TextInput, TextArea } from "./_designer/fields"
+import { Field, TextInput, TextArea, CoverEditor } from "./_designer/fields"
 import { Panel } from "./_designer/panel"
 import { HeroEditor } from "./_designer/hero-editor"
 import { SectionCard } from "./_designer/section-card"
@@ -46,6 +46,7 @@ export function ProjectDesigner({
   const [italic, setItalic] = useState(initialData.italic)
   const [desc, setDesc] = useState(initialData.desc)
   const [cover, setCover] = useState(initialData.cover)
+  const [coverImage, setCoverImage] = useState(initialData.coverImage ?? "")
   const [monogram, setMonogram] = useState(initialData.monogram)
   const [year, setYear] = useState(initialData.year)
   const [duration, setDuration] = useState(initialData.duration)
@@ -56,6 +57,7 @@ export function ProjectDesigner({
   const [role, setRole] = useState(initialData.role ?? "")
   const [client, setClient] = useState(initialData.client ?? "")
   const [url, setUrl] = useState(initialData.url ?? "")
+  const [heroImage, setHeroImage] = useState(initialData.heroImage ?? "")
   const [hero, setHero] = useState<NonNullable<Project["hero"]>>(
     initialData.hero
       ? (initialData.hero as unknown as NonNullable<Project["hero"]>)
@@ -90,11 +92,13 @@ export function ProjectDesigner({
       role: role || undefined,
       client: client || undefined,
       url: url || undefined,
+      coverImage: coverImage || undefined,
+      heroImage: heroImage || undefined,
       hero,
       sections: sections.length ? sections : undefined,
       related: undefined,
     }),
-    [slug, name, italic, desc, cover, monogram, year, duration, status, stack, role, client, url, hero, sections]
+    [slug, name, italic, desc, cover, coverImage, monogram, year, duration, status, stack, role, client, url, heroImage, hero, sections]
   )
 
   /* ── Refresh preview (debounced) ── */
@@ -139,6 +143,7 @@ export function ProjectDesigner({
     fd.set("italic", italic)
     fd.set("desc", desc)
     fd.set("cover", cover)
+    fd.set("coverImage", coverImage)
     fd.set("monogram", monogram)
     fd.set("year", year)
     fd.set("duration", duration)
@@ -147,6 +152,7 @@ export function ProjectDesigner({
     fd.set("role", role)
     fd.set("client", client)
     fd.set("url", url)
+    fd.set("heroImage", heroImage)
     fd.set("hero", JSON.stringify(hero))
     fd.set("sections", sections.length ? JSON.stringify(sections) : "")
     fd.set("relatedSlugs", relatedSlugs.join(", "))
@@ -259,13 +265,17 @@ export function ProjectDesigner({
             <Field label="Description">
               <TextArea value={desc} onChange={setDesc} rows={3} />
             </Field>
-            <Field label="Cover card (CSS gradient or URL)">
-              <TextInput value={cover} onChange={setCover} />
-              <div className="mt-1.5 h-10 rounded-lg" style={{ background: cover }} />
-            </Field>
-            <Field label="Monogram">
-              <TextInput value={monogram} onChange={setMonogram} />
-            </Field>
+            <CoverEditor
+              label="Cover card"
+              slug={slug}
+              value={{ cover, mono: monogram }}
+              onChange={(ci) => {
+                setCover(ci.cover)
+                setMonogram(ci.mono)
+              }}
+              imageUrl={coverImage}
+              onImageUploaded={setCoverImage}
+            />
             <div className="flex gap-2.5">
               <div className={rowCls + " flex-1"}>
                 <label className={labelCls}>Year</label>
@@ -305,7 +315,13 @@ export function ProjectDesigner({
           </Panel>
 
           <Panel title="Hero" badge="detail page">
-            <HeroEditor value={hero} onChange={setHero} />
+            <HeroEditor
+              value={hero}
+              onChange={setHero}
+              slug={slug}
+              imageUrl={heroImage}
+              onImageUploaded={setHeroImage}
+            />
           </Panel>
 
           <Panel title={`Sections (${sections.length})`} badge="detail page" defaultOpen>
@@ -319,6 +335,7 @@ export function ProjectDesigner({
                 onRemove={removeSection}
                 onChange={updateSection}
                 onKindChange={changeKind}
+                slug={slug}
               />
             ))}
             <div className="mt-1 flex items-center gap-2">

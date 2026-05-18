@@ -1,4 +1,5 @@
-﻿import Link from "next/link"
+﻿import Image from "next/image"
+import Link from "next/link"
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react"
 import { Eyebrow } from "@/components/ui/eyebrow"
 import { Tag } from "@/components/ui/tag"
@@ -114,13 +115,24 @@ function CoverImg({
         `relative ${aspectClass} overflow-hidden rounded-[18px] border border-(--cobalt-border) transition-[transform,border-color] duration-240 hover:-translate-y-0.5 hover:border-(--cobalt-border-hi)`
       }
     >
-      <div className="absolute inset-0" style={{ background: image.cover }} />
+      {image.cover?.startsWith("http") ? (
+        <Image
+          src={image.cover}
+          alt={image.mono}
+          fill
+          className="object-cover"
+        />
+      ) : (
+        <div className="absolute inset-0" style={{ background: image.cover }} />
+      )}
       <div className="absolute inset-0 bg-(image:--grain-url) opacity-35 mix-blend-overlay" />
-      <div
-        className={`absolute inset-0 flex items-center justify-center font-display italic ${monoSize} tracking-[-0.04em] text-white/92`}
-      >
-        {image.mono}
-      </div>
+      {!image.cover?.startsWith("http") && (
+        <div
+          className={`absolute inset-0 flex items-center justify-center font-display italic ${monoSize} tracking-[-0.04em] text-white/92`}
+        >
+          {image.mono}
+        </div>
+      )}
       {image.label && (
         <span className="absolute bottom-3 left-3.5 rounded-full border border-white/12 bg-black/40 px-2.5 py-1 font-mono text-[10.5px] tracking-[0.14em] text-white/85 uppercase backdrop-blur-[6px]">
           {image.label}
@@ -136,6 +148,7 @@ function CoverImg({
 
 export function PDHero({ project }: { project: Project }) {
   const h = project.hero!
+  console.log("🚀 ~ PDHero ~  h:", h)
   return (
     <section className="relative isolate overflow-hidden pt-[clamp(80px,12vw,160px)] pb-[clamp(48px,8vw,96px)]">
       <div
@@ -237,11 +250,22 @@ export function PDHero({ project }: { project: Project }) {
 
         {/* Cover */}
         <div className="relative mt-16 aspect-video overflow-hidden rounded-[32px] border border-(--cobalt-border-hi) [box-shadow:0_40px_80px_-20px_rgba(0,0,0,0.5)]">
-          <div className="absolute inset-0" style={{ background: h.cover }} />
+          {(project.heroImage ?? project.coverImage) ? (
+            <Image
+              src={(project.heroImage ?? project.coverImage)!}
+              alt={project.name}
+              fill
+              className="object-cover"
+            />
+          ) : (
+            <div className="absolute inset-0" style={{ background: h.cover }} />
+          )}
           <div className="absolute inset-0 bg-(image:--grain-url) opacity-35 mix-blend-overlay" />
-          <div className="absolute inset-0 flex items-center justify-center font-display text-[clamp(5rem,14vw,13rem)] tracking-tighter text-white/94 italic [text-shadow:0_4px_32px_rgba(0,0,0,0.5)]">
-            {project.monogram}
-          </div>
+          {!(project.heroImage ?? project.coverImage) && (
+            <div className="absolute inset-0 flex items-center justify-center font-display text-[clamp(5rem,14vw,13rem)] tracking-tighter text-white/94 italic [text-shadow:0_4px_32px_rgba(0,0,0,0.5)]">
+              {project.monogram}
+            </div>
+          )}
         </div>
       </div>
     </section>
@@ -395,10 +419,19 @@ function SecWideImage({ s }: { s: WideImageSection }) {
           className="relative overflow-hidden rounded-[24px] border border-(--cobalt-border-hi) [box-shadow:0_32px_64px_-16px_rgba(0,0,0,0.5)]"
           style={{ aspectRatio: "var(--ar, 16/9)", ...ar }}
         >
-          <div
-            className="absolute inset-0"
-            style={{ background: s.image.cover }}
-          />
+          {s.image.cover?.startsWith("http") ? (
+            <Image
+              src={s.image.cover}
+              alt={s.image.mono}
+              fill
+              className="object-cover"
+            />
+          ) : (
+            <div
+              className="absolute inset-0"
+              style={{ background: s.image.cover }}
+            />
+          )}
           <div className="absolute inset-0 bg-(image:--grain-url) opacity-35 mix-blend-overlay" />
           <div className="absolute inset-0 flex items-center justify-center font-display text-[clamp(5rem,12vw,10rem)] tracking-tighter text-white/95 italic">
             {s.image.mono}
@@ -561,14 +594,25 @@ function PDRelated({ related }: { related: NonNullable<Project["related"]> }) {
               className="relative grid grid-cols-[220px_1fr] overflow-hidden rounded-[24px] border border-(--cobalt-border) bg-(--ink-900) no-underline transition-[border-color,transform] duration-240 hover:-translate-y-0.5 hover:border-(--cobalt-border-hi) max-[540px]:grid-cols-1"
             >
               <div className="relative aspect-square border-r border-(--cobalt-border-lo) max-[540px]:aspect-video max-[540px]:border-r-0 max-[540px]:border-b">
-                <div
-                  className="absolute inset-0"
-                  style={{ background: p.cover }}
-                />
+                {p.coverImage ? (
+                  <Image
+                    src={p.coverImage}
+                    alt={p.name}
+                    fill
+                    className="object-cover"
+                  />
+                ) : (
+                  <div
+                    className="absolute inset-0"
+                    style={{ background: p.cover }}
+                  />
+                )}
                 <div className="absolute inset-0 bg-(image:--grain-url) opacity-35 mix-blend-overlay" />
-                <div className="absolute inset-0 flex items-center justify-center font-display text-[3rem] tracking-[-0.04em] text-white/92 italic">
-                  {p.monogram}
-                </div>
+                {!p.coverImage && (
+                  <div className="absolute inset-0 flex items-center justify-center font-display text-[3rem] tracking-[-0.04em] text-white/92 italic">
+                    {p.monogram}
+                  </div>
+                )}
               </div>
               <div className="flex flex-col justify-between gap-3 p-[22px_22px_20px]">
                 <h4 className="m-0 font-display text-[24px] leading-none font-normal tracking-tight text-(--fg1)">

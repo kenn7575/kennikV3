@@ -3,7 +3,7 @@ import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
-
+import { Analytics } from "@vercel/analytics/next"
 const fontDisplay = Instrument_Serif({
   weight: ["400"],
   style: ["normal", "italic"],
@@ -34,11 +34,12 @@ export default function RootLayout({
         "antialiased",
         fontDisplay.variable,
         fontSans.variable,
-        fontMono.variable,
+        fontMono.variable
       )}
     >
       <body>
         <ThemeProvider>{children}</ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )

@@ -14,6 +14,7 @@ export function SectionCard({
   onRemove,
   onChange,
   onKindChange,
+  slug,
 }: {
   s: ProjectSection
   index: number
@@ -22,6 +23,7 @@ export function SectionCard({
   onRemove: (i: number) => void
   onChange: (i: number, s: ProjectSection) => void
   onKindChange: (i: number, kind: SectionKind) => void
+  slug?: string
 }) {
   const [open, setOpen] = useState(false)
 
@@ -74,7 +76,7 @@ export function SectionCard({
       </div>
       {open && (
         <div className="border-t border-t-(--cobalt-border-lo) px-3.5 pt-3.5 pb-2">
-          <SectionEditor s={s} onChange={(ns) => onChange(index, ns)} />
+          <SectionEditor s={s} slug={slug} onChange={(ns) => onChange(index, ns)} />
         </div>
       )}
     </div>

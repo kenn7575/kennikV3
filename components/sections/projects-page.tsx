@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, ArrowUpRight } from "lucide-react"
 import type { Project } from "@/lib/data/projects"
@@ -86,10 +87,11 @@ function PIHero({ projects }: { projects: Project[] }) {
 function FeatCover({ project }: { project: Project }) {
   return (
     <div className="feat-cover relative aspect-5/4 overflow-hidden rounded-[28px] border border-[--cobalt-border-hi] shadow-[0_40px_80px_-24px_rgba(0,0,0,0.55)] transition-transform duration-(--d-slow) ease-out">
-      <div
-        className="feat-cover-grad absolute inset-0 transition-transform duration-(--d-slow) ease-out"
-        style={{ background: project.cover }}
-      />
+      {project.coverImage ? (
+        <Image src={project.coverImage} alt={project.name} fill className="feat-cover-grad object-cover transition-transform duration-(--d-slow) ease-out" />
+      ) : (
+        <div className="feat-cover-grad absolute inset-0 transition-transform duration-(--d-slow) ease-out" style={{ background: project.cover }} />
+      )}
       <div className="absolute inset-0 [background-image:var(--grain-url)] opacity-35 mix-blend-overlay" />
       <div className="absolute inset-0 flex items-center justify-center font-display text-[clamp(5rem,14vw,12rem)] tracking-tighter text-white/94 italic [text-shadow:0_4px_32px_rgba(0,0,0,0.5)]">
         {project.monogram}
@@ -195,10 +197,11 @@ function PICard({ p, size }: { p: Project; size: "xl" | "lg" | "md" | "sm" }) {
         className="relative flex-1 overflow-hidden border-b border-[--cobalt-border-lo]"
         style={{ minHeight: minH }}
       >
-        <div
-          className="card-grad absolute inset-0 transition-transform duration-(--d-slow) ease-out"
-          style={{ background: p.cover }}
-        />
+        {p.coverImage ? (
+          <Image src={p.coverImage} alt={p.name} fill className="card-grad object-cover transition-transform duration-(--d-slow) ease-out" />
+        ) : (
+          <div className="card-grad absolute inset-0 transition-transform duration-(--d-slow) ease-out" style={{ background: p.cover }} />
+        )}
         <div className="absolute inset-0 [background-image:var(--grain-url)] opacity-35 mix-blend-overlay" />
         <div
           className={`absolute inset-0 flex items-center justify-center font-display tracking-tighter text-white/92 italic [text-shadow:0_4px_24px_rgba(0,0,0,0.5)] ${size === "xl" ? "text-[clamp(4rem,7vw,7.5rem)]" : "text-[clamp(2.4rem,5vw,4.5rem)]"}`}

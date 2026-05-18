@@ -4,6 +4,11 @@ import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
 import { requireAuth } from "@/lib/session"
+import {
+  deleteStorageFile,
+  deleteProjectImages,
+  extractCoverUrls,
+} from "@/lib/storage"
 
 type State = { error: string } | null
 
@@ -25,6 +30,30 @@ function parseJson(
   } catch {
     return { ok: false, error: `Invalid JSON in ${field}.` }
   }
+}
+
+async function cleanupReplacedImages(
+  oldProject: { coverImage: string | null; heroImage: string | null; sections: unknown },
+  newCoverImage: string | null,
+  newHeroImage: string | null,
+  newSections: unknown
+) {
+  const deletions: Promise<void>[] = []
+
+  if (oldProject.coverImage && oldProject.coverImage !== newCoverImage) {
+    deletions.push(deleteStorageFile(oldProject.coverImage))
+  }
+  if (oldProject.heroImage && oldProject.heroImage !== newHeroImage) {
+    deletions.push(deleteStorageFile(oldProject.heroImage))
+  }
+
+  const oldUrls = new Set(extractCoverUrls(oldProject.sections))
+  const newUrls = new Set(extractCoverUrls(newSections))
+  for (const url of oldUrls) {
+    if (!newUrls.has(url)) deletions.push(deleteStorageFile(url))
+  }
+
+  await Promise.all(deletions)
 }
 
 export async function createProject(
@@ -55,6 +84,8 @@ export async function createProject(
   if (!["LIVE", "RESCUED", "STEALTH"].includes(status))
     return { error: "Invalid status." }
 
+  const coverImage = (fd.get("coverImage") as string | null)?.trim() || null
+  const heroImage = (fd.get("heroImage") as string | null)?.trim() || null
   const heroResult = parseJson(fd.get("hero") as string, "hero")
   if (!heroResult.ok) return { error: heroResult.error }
   const sectionsResult = parseJson(fd.get("sections") as string, "sections")
@@ -70,6 +101,7 @@ export async function createProject(
         italic,
         desc,
         cover,
+        coverImage,
         monogram,
         year,
         duration,
@@ -78,6 +110,7 @@ export async function createProject(
         role,
         client,
         url,
+        heroImage,
         hero: heroResult.value ?? undefined,
         sections: sectionsResult.value ?? undefined,
         relatedSlugs,
@@ -122,6 +155,16 @@ export async function updateProject(
   const sectionsResult = parseJson(fd.get("sections") as string, "sections")
   if (!sectionsResult.ok) return { error: sectionsResult.error }
   const relatedSlugs = parseList(fd.get("relatedSlugs") as string)
+  const coverImage = (fd.get("coverImage") as string | null)?.trim() || null
+  const heroImage = (fd.get("heroImage") as string | null)?.trim() || null
+
+  const existing = await prisma.project.findUnique({
+    where: { slug },
+    select: { coverImage: true, heroImage: true, sections: true },
+  })
+  if (existing) {
+    await cleanupReplacedImages(existing, coverImage, heroImage, sectionsResult.value)
+  }
 
   await prisma.project.update({
     where: { slug },
@@ -131,6 +174,7 @@ export async function updateProject(
       italic,
       desc,
       cover,
+      coverImage,
       monogram,
       year,
       duration,
@@ -139,6 +183,7 @@ export async function updateProject(
       role,
       client,
       url,
+      heroImage,
       hero: heroResult.value ?? undefined,
       sections: sectionsResult.value ?? undefined,
       relatedSlugs,
@@ -177,6 +222,16 @@ export async function updateProjectNoRedirect(
   const sectionsResult = parseJson(fd.get("sections") as string, "sections")
   if (!sectionsResult.ok) return { error: sectionsResult.error }
   const relatedSlugs = parseList(fd.get("relatedSlugs") as string)
+  const coverImage = (fd.get("coverImage") as string | null)?.trim() || null
+  const heroImage = (fd.get("heroImage") as string | null)?.trim() || null
+
+  const existing = await prisma.project.findUnique({
+    where: { slug },
+    select: { coverImage: true, heroImage: true, sections: true },
+  })
+  if (existing) {
+    await cleanupReplacedImages(existing, coverImage, heroImage, sectionsResult.value)
+  }
 
   await prisma.project.update({
     where: { slug },
@@ -186,6 +241,7 @@ export async function updateProjectNoRedirect(
       italic,
       desc,
       cover,
+      coverImage,
       monogram,
       year,
       duration,
@@ -194,6 +250,7 @@ export async function updateProjectNoRedirect(
       role,
       client,
       url,
+      heroImage,
       hero: heroResult.value ?? undefined,
       sections: sectionsResult.value ?? undefined,
       relatedSlugs,
@@ -205,6 +262,7 @@ export async function updateProjectNoRedirect(
 
 export async function deleteProject(slug: string): Promise<void> {
   await requireAuth()
+  await deleteProjectImages(slug)
   await prisma.project.delete({ where: { slug } })
   revalidateTag("projects", "max")
 }

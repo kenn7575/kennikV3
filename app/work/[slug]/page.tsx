@@ -7,7 +7,11 @@ export async function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }))
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
   const { slug } = await params
   const project = await getProject(slug)
   if (!project) return {}
@@ -17,9 +21,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ProjectPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
   const { slug } = await params
   const project = await getProject(slug)
+  console.log("🚀 ~ ProjectPage ~ project:", project)
   if (!project || !project.hero) notFound()
   return <ProjectDetailPage project={project} />
 }

@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
 import { Tag } from "@/components/ui/tag"
 import { SectionHead } from "@/components/ui/section-head"
@@ -38,10 +39,11 @@ function ProjectCard({ project }: { project: Project }) {
           border: "1px solid var(--cobalt-border)",
         }}
       >
-        <div
-          className="absolute inset-0"
-          style={{ background: project.cover }}
-        />
+        {project.coverImage ? (
+          <Image src={project.coverImage} alt={project.name} fill className="object-cover" />
+        ) : (
+          <div className="absolute inset-0" style={{ background: project.cover }} />
+        )}
         <div
           className="absolute inset-0"
           style={{

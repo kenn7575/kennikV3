@@ -118,6 +118,7 @@ export type RelatedProject = {
   italic: string
   monogram: string
   cover: string
+  coverImage?: string
 }
 
 /* ------------------------------------------------------------------ */
@@ -130,6 +131,7 @@ export type Project = {
   italic: string
   desc: string
   cover: string
+  coverImage?: string
   monogram: string
   year: string
   duration: string
@@ -139,6 +141,7 @@ export type Project = {
   role?: string
   client?: string
   url?: string
+  heroImage?: string
   hero?: ProjectHero
   sections?: ProjectSection[]
   related?: RelatedProject[]
@@ -155,6 +158,7 @@ function rowToProject(row: Prisma.ProjectGetPayload<object>): Project {
     italic: row.italic,
     desc: row.desc,
     cover: row.cover,
+    coverImage: row.coverImage ?? undefined,
     monogram: row.monogram,
     year: row.year,
     duration: row.duration,
@@ -163,8 +167,11 @@ function rowToProject(row: Prisma.ProjectGetPayload<object>): Project {
     role: row.role ?? undefined,
     client: row.client ?? undefined,
     url: row.url ?? undefined,
+    heroImage: row.heroImage ?? undefined,
     hero: row.hero ? (row.hero as unknown as ProjectHero) : undefined,
-    sections: row.sections ? (row.sections as unknown as ProjectSection[]) : undefined,
+    sections: row.sections
+      ? (row.sections as unknown as ProjectSection[])
+      : undefined,
     related: undefined, // resolved separately in getProject
   }
 }
@@ -176,6 +183,7 @@ function rowToRelated(row: Prisma.ProjectGetPayload<object>): RelatedProject {
     italic: row.italic,
     monogram: row.monogram,
     cover: row.cover,
+    coverImage: row.coverImage ?? undefined,
   }
 }
 
@@ -189,7 +197,7 @@ export const getProjects = unstable_cache(
     return rows.map(rowToProject)
   },
   ["projects"],
-  { revalidate: 3600, tags: ["projects"] },
+  { revalidate: 3600, tags: ["projects"] }
 )
 
 export async function getProject(slug: string): Promise<Project | undefined> {
@@ -211,6 +219,6 @@ export async function getProject(slug: string): Promise<Project | undefined> {
       return project
     },
     ["project", slug],
-    { revalidate: 3600, tags: ["projects"] },
+    { revalidate: 3600, tags: ["projects"] }
   )()
 }

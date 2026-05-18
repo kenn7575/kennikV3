@@ -18,6 +18,10 @@ function esc(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;")
 }
 
+function bg(cover: string): string {
+  return cover.startsWith("http") ? `url(${esc(cover)}) center/cover no-repeat` : esc(cover)
+}
+
 function renderInlineMarkup(text: string): string {
   return text
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
@@ -26,7 +30,7 @@ function renderInlineMarkup(text: string): string {
 
 function coverBlock(cover: string, mono: string, aspect = "16/9", radius = "24px"): string {
   return `<div style="position:relative;aspect-ratio:${aspect};border-radius:${radius};border:1px solid var(--cobalt-border);overflow:hidden;box-shadow:0 32px 64px -16px rgba(0,0,0,.5)">
-  <div style="position:absolute;inset:0;background:${esc(cover)}"></div>
+  <div style="position:absolute;inset:0;background:${bg(cover)}"></div>
   <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-style:italic;font-size:clamp(5rem,12vw,10rem);color:rgba(255,255,255,.94);letter-spacing:-.04em;text-shadow:0 4px 32px rgba(0,0,0,.5)">${esc(mono)}</div>
 </div>`
 }
@@ -119,7 +123,7 @@ function secAsideImage(s: { eyebrow?: string; heading?: string; italic?: string;
   <div class="shell" style="display:grid;grid-template-columns:${isLeft ? "5fr 6fr" : "6fr 5fr"};gap:56px;align-items:center">
     <div ${isLeft ? 'style="order:1"' : ""}>${sectionHeading(s.eyebrow, s.heading, s.italic)}<div style="margin-top:20px">${bodyText(s.body)}</div></div>
     <div style="position:relative;aspect-ratio:4/5;border-radius:24px;border:1px solid var(--cobalt-border-hi);overflow:hidden;box-shadow:0 32px 64px -16px rgba(0,0,0,.5)${isLeft ? ";order:0" : ""}">
-      <div style="position:absolute;inset:0;background:${esc(s.image.cover)}"></div>
+      <div style="position:absolute;inset:0;background:${bg(s.image.cover)}"></div>
       <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-style:italic;font-size:clamp(4rem,10vw,8rem);color:rgba(255,255,255,.92)">${esc(s.image.mono)}</div>
     </div>
   </div>
@@ -177,7 +181,12 @@ function heroSection(project: Project): string {
     <p style="font-size:clamp(1.1rem,1.5vw,1.3rem);color:var(--fg2);max-width:60ch;line-height:1.55;margin:0 0 40px">${esc(h.summary)}</p>
     <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:56px">${tags}</div>
     <div style="display:grid;grid-template-columns:repeat(${h.metrics.length},1fr);border-top:1px solid var(--cobalt-border);border-bottom:1px solid var(--cobalt-border);background:rgba(255,255,255,.012)">${metrics}</div>
-    <div style="margin-top:64px">${coverBlock(h.cover, project.monogram, "16/9", "32px")}</div>
+    <div style="margin-top:64px;position:relative;aspect-ratio:16/9;border-radius:32px;border:1px solid var(--cobalt-border-hi);overflow:hidden;box-shadow:0 40px 80px -20px rgba(0,0,0,.5)">
+      ${(project.heroImage ?? project.coverImage)
+        ? `<img src="${esc(project.heroImage ?? project.coverImage ?? "")}" alt="${esc(project.name)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>`
+        : `<div style="position:absolute;inset:0;background:${bg(h.cover)}"></div>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-style:italic;font-size:clamp(5rem,14vw,13rem);color:rgba(255,255,255,.94);letter-spacing:-.04em;text-shadow:0 4px 32px rgba(0,0,0,.5)">${esc(project.monogram)}</div>`}
+    </div>
   </div>
 </section>`
 }
@@ -205,7 +214,7 @@ function relatedSection(project: Project): string {
   const cards = related.map(p => `
   <a href="/work/${esc(p.slug)}" style="position:relative;border:1px solid var(--cobalt-border);border-radius:24px;overflow:hidden;display:grid;grid-template-columns:220px 1fr;background:var(--ink-800);text-decoration:none;transition:border-color .24s">
     <div style="position:relative;aspect-ratio:1/1;border-right:1px solid var(--cobalt-border-lo)">
-      <div style="position:absolute;inset:0;background:${esc(p.cover)}"></div>
+      <div style="position:absolute;inset:0;background:${bg(p.cover)}"></div>
       <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-style:italic;font-size:3rem;color:rgba(255,255,255,.92);letter-spacing:-.04em">${esc(p.monogram)}</div>
     </div>
     <div style="padding:22px 22px 20px;display:flex;flex-direction:column;justify-content:space-between;gap:12px">

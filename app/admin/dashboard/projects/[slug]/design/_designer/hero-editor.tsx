@@ -2,16 +2,22 @@
 
 import type { Project } from "@/lib/data/projects"
 import { inputCls, labelCls, addRowBtnCls, iconBtnCls } from "./primitives"
-import { Field, TextInput, TextArea } from "./fields"
+import { Field, TextInput, TextArea, CoverEditor } from "./fields"
 
 export type HeroData = NonNullable<Project["hero"]>
 
 export function HeroEditor({
   value,
   onChange,
+  slug,
+  imageUrl,
+  onImageUploaded,
 }: {
   value: HeroData
   onChange: (v: HeroData) => void
+  slug?: string
+  imageUrl?: string
+  onImageUploaded?: (url: string) => void
 }) {
   const metrics = value.metrics ?? []
   return (
@@ -32,13 +38,14 @@ export function HeroEditor({
           rows={3}
         />
       </Field>
-      <Field label="Cover (CSS gradient)">
-        <TextInput value={value.cover} onChange={(v) => onChange({ ...value, cover: v })} />
-        <div
-          className="mt-1.5 h-10 rounded-[6px]"
-          style={{ background: value.cover }}
-        />
-      </Field>
+      <CoverEditor
+        label="Cover"
+        slug={slug}
+        value={{ cover: value.cover, mono: "" }}
+        onChange={(ci) => onChange({ ...value, cover: ci.cover })}
+        imageUrl={imageUrl}
+        onImageUploaded={onImageUploaded}
+      />
       <div className={labelCls + " mt-1 mb-2"}>Metrics</div>
       {metrics.map((m, i) => (
         <div key={i} className="mb-1.5 flex items-center gap-2">

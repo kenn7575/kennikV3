@@ -118,6 +118,7 @@ model Project {
   italic       String
   desc         String
   cover        String
+  coverImage   String?
   monogram     String
   year         String
   duration     String
@@ -126,6 +127,7 @@ model Project {
   role         String?
   client       String?
   url          String?
+  heroImage    String?
   hero         Json?
   sections     Json?
   relatedSlugs String[]

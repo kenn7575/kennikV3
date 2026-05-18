@@ -177,9 +177,11 @@ export function CodeEditor({
 export function GalleryEditor({
   s,
   onChange,
+  slug,
 }: {
   s: GallerySection
   onChange: (s: GallerySection) => void
+  slug?: string
 }) {
   return (
     <>
@@ -196,9 +198,15 @@ export function GalleryEditor({
           <CoverEditor
             value={img}
             label={`Image ${i + 1}`}
+            slug={slug}
             onChange={(v) => {
               const ni = [...s.images]
               ni[i] = v
+              onChange({ ...s, images: ni })
+            }}
+            onImageUploaded={(url) => {
+              const ni = [...s.images]
+              ni[i] = { ...ni[i], cover: url }
               onChange({ ...s, images: ni })
             }}
           />
@@ -229,9 +237,11 @@ export function GalleryEditor({
 export function WideImageEditor({
   s,
   onChange,
+  slug,
 }: {
   s: WideImageSection
   onChange: (s: WideImageSection) => void
+  slug?: string
 }) {
   return (
     <>
@@ -243,7 +253,12 @@ export function WideImageEditor({
           rows={3}
         />
       </Field>
-      <CoverEditor value={s.image} onChange={(v) => onChange({ ...s, image: v })} />
+      <CoverEditor
+        value={s.image}
+        slug={slug}
+        onChange={(v) => onChange({ ...s, image: v })}
+        onImageUploaded={(url) => onChange({ ...s, image: { ...s.image, cover: url } })}
+      />
     </>
   )
 }
@@ -253,9 +268,11 @@ export function WideImageEditor({
 export function AsideImageEditor({
   s,
   onChange,
+  slug,
 }: {
   s: AsideImageSection
   onChange: (s: AsideImageSection) => void
+  slug?: string
 }) {
   const body = Array.isArray(s.body) ? s.body.join("\n\n") : s.body
   return (
@@ -282,7 +299,12 @@ export function AsideImageEditor({
           <option value="left">Left</option>
         </select>
       </Field>
-      <CoverEditor value={s.image} onChange={(v) => onChange({ ...s, image: v })} />
+      <CoverEditor
+        value={s.image}
+        slug={slug}
+        onChange={(v) => onChange({ ...s, image: v })}
+        onImageUploaded={(url) => onChange({ ...s, image: { ...s.image, cover: url } })}
+      />
     </>
   )
 }
@@ -389,9 +411,11 @@ export function StatsEditor({
 export function SectionEditor({
   s,
   onChange,
+  slug,
 }: {
   s: ProjectSection
   onChange: (s: ProjectSection) => void
+  slug?: string
 }) {
   switch (s.kind) {
     case "prose":
@@ -403,11 +427,11 @@ export function SectionEditor({
     case "code":
       return <CodeEditor s={s} onChange={onChange as (s: CodeSection) => void} />
     case "gallery":
-      return <GalleryEditor s={s} onChange={onChange as (s: GallerySection) => void} />
+      return <GalleryEditor s={s} slug={slug} onChange={onChange as (s: GallerySection) => void} />
     case "wide-image":
-      return <WideImageEditor s={s} onChange={onChange as (s: WideImageSection) => void} />
+      return <WideImageEditor s={s} slug={slug} onChange={onChange as (s: WideImageSection) => void} />
     case "aside-image":
-      return <AsideImageEditor s={s} onChange={onChange as (s: AsideImageSection) => void} />
+      return <AsideImageEditor s={s} slug={slug} onChange={onChange as (s: AsideImageSection) => void} />
     case "quote":
       return <QuoteEditor s={s} onChange={onChange as (s: QuoteSection) => void} />
     case "stats":
