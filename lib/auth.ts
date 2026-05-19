@@ -27,6 +27,11 @@ export const auth = betterAuth({
   },
   secret: process.env.BETTER_AUTH_SECRET!,
   baseURL: process.env.BETTER_AUTH_URL!,
+  trustedOrigins: [
+    "https://www.kennik.dk",
+    "https://kennik.dk",
+    "http://localhost:3000",
+  ],
 })
 
 export type Session = typeof auth.$Infer.Session
